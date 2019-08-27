@@ -1,4 +1,4 @@
-package simcpu;
+package app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,14 +8,19 @@ import javafx.stage.Stage;
 
 public class SimCPU extends Application {
     
+    private static Scene scene;
+  
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("AppView.fxml"));
         
-        Scene scene = new Scene(root);
-        
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }  
+    
+    public static Scene getScene() {
+        return scene;
     }
 
     /**

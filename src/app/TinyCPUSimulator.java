@@ -5,10 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.Observable;
 import javafx.collections.ObservableList;
 
-public class TinyCPU {
+public class TinyCPUSimulator {
     private InstructionMemory instMem;
+    private DataMemory dataMem;
     
-    public TinyCPU() {
+    public TinyCPUSimulator() {
         this.instMem = new InstructionMemory();
     }
 
@@ -16,8 +17,17 @@ public class TinyCPU {
         this.instMem = new InstructionMemory(instMemFile);
     }
     
-    public ObservableList<Instruction> getInstMem() {
-        return instMem.getInstMemList();
+    void parseDataMemFile(File dataMemFile) throws FileNotFoundException {
+        this.dataMem = new DataMemory(dataMemFile);
     }
+    
+    public ObservableList<Instruction> getInstMem() {
+        return instMem.getMemList();
+    }
+    
+    public ObservableList<MemData> getDataMem() {
+        return dataMem.getMemList();
+    }
+
     
 }

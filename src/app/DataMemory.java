@@ -7,26 +7,25 @@ import java.util.Scanner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class InstructionMemory {
-    private ArrayList<Instruction> memList;
-    
-    public InstructionMemory() {
-        memList = new ArrayList<Instruction>();
+class DataMemory {
+    private ArrayList<MemData> memList;
+
+    public DataMemory() {
+        memList = new ArrayList<MemData>();
     }
     
-    public InstructionMemory(File memFile) throws FileNotFoundException {
-        memList = new ArrayList<Instruction>();
+    public DataMemory(File memFile) throws FileNotFoundException {
+        memList = new ArrayList<MemData>();
         Scanner fileScan = new Scanner(memFile);
         
         int addCount = 0;
         while(fileScan.hasNext()) {
-            memList.add(new Instruction(Integer.parseInt(fileScan.nextLine(), 16), addCount));
+            memList.add(new MemData(Byte.valueOf(fileScan.nextLine(), 10), addCount));
             addCount += 1;
         }
     }
 
-    public ObservableList<Instruction> getMemList() {
+    ObservableList<MemData> getMemList() {
         return FXCollections.observableArrayList(this.memList);
     }   
-    
 }

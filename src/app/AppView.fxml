@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
-   <children>
-      <TableView fx:id="instMemTableView" layoutX="14.0" layoutY="42.0" prefHeight="419.0" prefWidth="302.0">
-        <columns>
-          <TableColumn fx:id="pcInstTableColumn" prefWidth="38.0" text="PC" />
-          <TableColumn fx:id="addressInstTableColumn" prefWidth="67.0" text="Add." />
-            <TableColumn fx:id="wordInstTableColumn" prefWidth="74.0" text="Word" />
-            <TableColumn fx:id="assemblyTableColumn" prefWidth="121.0" text="Instruction" />
-        </columns>
-      </TableView>
-      <Label layoutX="60.0" layoutY="14.0" text="Instructions Memory">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Button layoutX="100.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleInstructionMemoryLoad" text="Load Instructions" />
-      <TableView layoutX="326.0" layoutY="42.0" prefHeight="419.0" prefWidth="143.0">
-         <columns>
-            <TableColumn fx:id="addressDataTableColumn" prefWidth="67.0" text="Add." />
-            <TableColumn fx:id="wordDataTableColumn" prefWidth="74.0" text="Word" />
-         </columns>
-      </TableView>
-      <Label layoutX="330.0" layoutY="14.0" text="Data Memory">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Button layoutX="355.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleDataMemoryLoad" text="Load Data" />
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="924.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.AppController">
+  <children>
+    <TableView fx:id="instMemTableView" layoutX="14.0" layoutY="42.0" prefHeight="419.0" prefWidth="302.0">
+      <columns>
+        <TableColumn prefWidth="38.0" sortable="false" text="PC" fx:id="pcInstTableColumn" />
+        <TableColumn prefWidth="67.0" sortable="false" text="Add." fx:id="addressInstTableColumn" />
+        <TableColumn prefWidth="74.0" sortable="false" text="Word" fx:id="wordInstTableColumn" />
+        <TableColumn prefWidth="121.0" sortable="false" text="Instruction" fx:id="assemblyTableColumn" />
+      </columns>
+    </TableView>
+    <Label layoutX="60.0" layoutY="14.0" text="Instructions Memory">
+      <font>
+        <Font name="System Bold" size="18.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Button layoutX="100.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleInstructionMemoryLoad" text="Load Instructions" />
+    <TableView fx:id="dataMemTableView" editable="true" layoutX="326.0" layoutY="42.0" prefHeight="419.0" prefWidth="159.00009999999747">
+      <columns>
+        <TableColumn editable="false" prefWidth="67.0" sortable="false" text="Add." fx:id="addressDataTableColumn" />
+        <TableColumn prefWidth="74.0" sortable="false" text="Word" fx:id="wordDataTableColumn" />
+      </columns>
+    </TableView>
+    <Label font="$x1" layoutX="330.0" layoutY="14.0" text="Data Memory" />
+    <Button layoutX="353.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleDataMemoryLoad" text="Load Data" />
+  </children>
 </AnchorPane>

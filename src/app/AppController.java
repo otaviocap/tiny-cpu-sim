@@ -18,8 +18,10 @@ import java.io.FileNotFoundException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 /**
  *
@@ -27,7 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class AppController implements Initializable {
     
-    private TinyCPU simulator;
+    private TinyCPUSimulator simulator;
     
     @FXML
     private TableView instMemTableView;
@@ -39,10 +41,17 @@ public class AppController implements Initializable {
     private TableColumn wordInstTableColumn;
     @FXML
     private TableColumn assemblyTableColumn;
+    
+    @FXML
+    private TableView dataMemTableView;
+    @FXML
+    private TableColumn addressDataTableColumn;
+    @FXML
+    private TableColumn<MemData, String> wordDataTableColumn;
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.simulator = new TinyCPU();
+        this.simulator = new TinyCPUSimulator();
     }
     
     @FXML
@@ -72,19 +81,43 @@ public class AppController implements Initializable {
         
         File dataMemFile = fileChooser.showOpenDialog(SimCPU.getScene().getWindow());
         
-        if (dataMemFile != null) {
-            System.out.println("TODO implement");
+        try { 
+            if (dataMemFile != null) {
+                this.simulator.parseDataMemFile(dataMemFile);
+                this.initDataMemTableView();
+            }
         }
+        catch(FileNotFoundException fnfe) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erro!");
+            alert.setHeaderText("Erro ao abrir o arquivo!");
+        }
+        
     }
 
     private void initInstMemTableView() {
         this.addressInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         this.pcInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("pcIsHere"));
         this.assemblyTableColumn.setCellValueFactory(new PropertyValueFactory<>("assembly"));
-        this.wordInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("word"));
+        this.wordInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("hexWord"));
         
         this.instMemTableView.setItems(this.simulator.getInstMem());
         
-        System.out.println(this.simulator.getInstMem());
+    }
+
+    private void initDataMemTableView() {
+        this.addressDataTableColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        this.wordDataTableColumn.setCellValueFactory(new PropertyValueFactory<MemData, String>("wordStr"));
+        
+        this.dataMemTableView.setItems(this.simulator.getDataMem());
+        
+        this.wordDataTableColumn.setCellFactory(TextFieldTableCell.<MemData>forTableColumn());
+        this.wordDataTableColumn.setOnEditCommit(
+        ((CellEditEvent<MemData, String> t) -> {
+            ((MemData) t.getTableView().getItems().get(t.getTablePosition().getRow())).setWordInt(Integer.parseInt(t.getNewValue()));
+            })
+        );
+        
+        
     }
 }

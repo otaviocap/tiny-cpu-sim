@@ -18,9 +18,7 @@ public class Instruction {
     public Instruction(Integer word, Integer address) {
         this.word = word;
         this.address = address;
-        if(this.address == 0) {
-            this.pcIsHere = true;
-        }
+        this.pcIsHere = (address == 0) ? true : false;
         this.hexWord = this.parseHexWord();
         this.binWord = this.parseBinWord();
         
@@ -60,23 +58,23 @@ public class Instruction {
         this.ccToMnemonic.put("1", "N");
     }
     
-    private String getOpcode() {
+    public String getOpcode() {
         return this.opcodeToMnemonic.get(this.binWord.substring(0, 3));
     }
     
-    private String getReg() {
+    public String getReg() {
         return this.regToMnemonic.get(this.binWord.substring(3, 4));
     }
     
-    private String getCC() {
+    public String getCC() {
         return this.ccToMnemonic.get(this.binWord.substring(3, 4));
     }
     
-    private Integer getMemAddress() {
+    public Integer getMemAddress() {
         return Integer.parseInt(this.binWord.substring(4,8), 2);
     }
     
-    private String parseAssembly() {
+    public String parseAssembly() {
         String returnable = this.getOpcode() + " ";
         if(this.isJumpInstruction()) {
             returnable += this.getCC() + " ";
@@ -106,8 +104,8 @@ public class Instruction {
         this.word = word;
     }
 
-    public Boolean getPcIsHere() {
-        return pcIsHere;
+    public String getPcIsHere() {
+        return (this.pcIsHere) ? "*" : "";
     }
 
     public void setPcIsHere(Boolean pcIsHere) {

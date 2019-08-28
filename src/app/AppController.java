@@ -15,11 +15,16 @@ import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import app.SimCPU;
 import java.io.FileNotFoundException;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
@@ -32,26 +37,33 @@ public class AppController implements Initializable {
     private TinyCPUSimulator simulator;
     
     @FXML
-    private TableView instMemTableView;
+    private TableView<Instruction> instMemTableView;
     @FXML
-    private TableColumn pcInstTableColumn;
+    private TableColumn<Instruction, Integer> pcInstTableColumn;
     @FXML
-    private TableColumn addressInstTableColumn;
+    private TableColumn<Instruction, Integer> addressInstTableColumn;
     @FXML
     private TableColumn<Instruction, String> wordInstTableColumn;
     @FXML
-    private TableColumn assemblyTableColumn;
+    private TableColumn<Instruction, String> assemblyTableColumn;
     
     @FXML
-    private TableView dataMemTableView;
+    private TableView<MemData> dataMemTableView;
     @FXML
-    private TableColumn addressDataTableColumn;
+    private TableColumn<MemData, Integer> addressDataTableColumn;
     @FXML
     private TableColumn<MemData, String> wordDataTableColumn;
+    
+    @FXML
+    private TextField raTextField, rbTextField, pcTextField, riTextField;
+    @FXML
+    private TextField zTextField, nTextField;
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.simulator = new TinyCPUSimulator();
+        this.initTableViews();
+        this.updateDataInGUI();
     }
     
     @FXML
@@ -110,12 +122,29 @@ public class AppController implements Initializable {
                 int address = inst.getAddress();
                 this.simulator.setInstMemPosition(address, t.getNewValue());
                 System.out.println(this.simulator.getInstMem());
-                t.getTableView().refresh();
+                simulator.getCurrentInstruction().getMemAddress();
             })
         );
         
+        this.instMemTableView.setRowFactory((tv) -> new TableRow<Instruction>() {
+            @Override
+            public void updateItem(Instruction item, boolean empty) {
+                super.updateItem(item, empty) ;
+                if (item == null) {
+                    setStyle("");
+                }
+                else {
+                    if (Objects.equals(item.getAddress(), simulator.getPC().getContent())) {
+                        setStyle("-fx-background-color: tomato;");
+                    } else {
+                        setStyle("");
+                    }
+                }
+            }
+        });
         
     }
+     
 
     private void initDataMemTableView() {
         this.addressDataTableColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -129,9 +158,66 @@ public class AppController implements Initializable {
                 MemData data = (MemData) t.getTableView().getItems().get(t.getTablePosition().getRow());
                 int address = data.getAddress();
                 this.simulator.setDataMemPosition(address, t.getNewValue());
-                t.getTableView().refresh();
+                updateDataInGUI();
             })
         );
+        
+        this.dataMemTableView.setRowFactory((tv) -> new TableRow<MemData>() {
+            @Override
+            public void updateItem(MemData item, boolean empty) {
+                super.updateItem(item, empty) ;
+                if (item == null) {
+                    setStyle("");
+                }
+                else {
+                    
+                    if (Objects.equals(item.getAddress(), simulator.getCurrentInstruction().getMemAddress())) {
+                        setStyle("-fx-background-color: lightgreen;");
+                    } else {
+                        setStyle("");
+                    }
+                }
+            }
+        });
+        
+    }
+
+    private void initTableViews() {
+        this.initDataMemTableView();
+        this.initInstMemTableView();
+    }
+    
+    @FXML
+    private void handleStepButton(ActionEvent event) {
+        try {
+            this.simulator.runNextInstruction();
+            this.updateDataInGUI();
+            
+        } catch (UnrecognizedInstructionException ex) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erro!");
+            alert.setHeaderText("Instrução não reconhecida!");
+        }
+        
+    }
+    
+    @FXML
+    private void handleRunButton(ActionEvent event) {
+        
+    }
+
+    private void updateDataInGUI() {
+        this.dataMemTableView.refresh();
+        this.instMemTableView.refresh();
+        
+        this.raTextField.setText(this.simulator.getRegA().getContent().toString());
+        this.rbTextField.setText(this.simulator.getRegB().getContent().toString());
+        this.pcTextField.setText(this.simulator.getPC().getContent().toString());
+        this.riTextField.setText(this.simulator.getRI().getContent().toString());   
+        
+        this.zTextField.setText(this.simulator.getCcZ().toString());   
+        this.nTextField.setText(this.simulator.getCcN().toString());   
+        
         
     }
 }

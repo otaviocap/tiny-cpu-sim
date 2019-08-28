@@ -12,6 +12,9 @@ public class InstructionMemory {
     
     public InstructionMemory() {
         this.memList = FXCollections.observableArrayList();
+        for (int add = 0; add < 16; add++) {
+            this.memList.add(new Instruction(0, add));
+        }
     }
     
     public InstructionMemory(File memFile) throws FileNotFoundException {
@@ -20,7 +23,7 @@ public class InstructionMemory {
         
         int addCount = 0;
         while(fileScan.hasNext()) {
-            memList.add(new Instruction(Integer.parseInt(fileScan.nextLine(), 16), addCount));
+            this.memList.add(new Instruction(Integer.parseInt(fileScan.nextLine(), 16), addCount));
             addCount += 1;
         }
     }
@@ -32,6 +35,21 @@ public class InstructionMemory {
     void setInst(int address, String wordStr) {
         Instruction inst = this.memList.get(address);
         inst.setHexWord(wordStr);
+    }
+
+    public Instruction read(int address) {
+        return this.memList.get(address);
+    }
+
+    public void updatePC(Integer pc) {
+        for(Instruction inst : this.memList) {
+            if(inst.getAddress() == pc) {
+                inst.setPcIsHere(true);
+            }
+            else {
+                inst.setPcIsHere(false);
+            }
+        }
     }
     
 }

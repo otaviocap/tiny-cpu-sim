@@ -12,7 +12,7 @@ public class TinyCPUSimulator {
     private Register regA, regB, regPC, regRI;
     private Boolean ccZ, ccN;   
     
-    private Boolean alreadyInHLT;
+    private Boolean hltMode;
     
     public TinyCPUSimulator() {
         this.instMem = new InstructionMemory();
@@ -26,15 +26,17 @@ public class TinyCPUSimulator {
         this.ccZ = false;
         this.ccN = false;
         
-        this.alreadyInHLT = false;
+        this.hltMode = false;
     }
     
-    public void run() {  //until HLT
-        //TODO implement it
+    public void run() throws UnrecognizedInstructionException {  //until HLT
+        while(!this.hltMode) {
+            this.runNextInstruction();
+        }
     }
     
     public void runNextInstruction() throws UnrecognizedInstructionException {
-        if(this.alreadyInHLT) {
+        if(this.hltMode) {
             return;
         }
         
@@ -77,7 +79,7 @@ public class TinyCPUSimulator {
             }            
         }
         else if(current.getOpcode().equals("HLT")) {  //HLT
-            this.alreadyInHLT = true;
+            this.hltMode = true;
         }
         else {
             throw new UnrecognizedInstructionException();

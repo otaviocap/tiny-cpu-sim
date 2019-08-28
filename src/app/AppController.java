@@ -121,8 +121,7 @@ public class AppController implements Initializable {
                 Instruction inst = (Instruction) t.getTableView().getItems().get(t.getTablePosition().getRow());
                 int address = inst.getAddress();
                 this.simulator.setInstMemPosition(address, t.getNewValue());
-                System.out.println(this.simulator.getInstMem());
-                simulator.getCurrentInstruction().getMemAddress();
+                t.getTableView().getSelectionModel().clearSelection();
             })
         );
         
@@ -143,6 +142,12 @@ public class AppController implements Initializable {
             }
         });
         
+        this.instMemTableView.focusedProperty().addListener((ov, oldV, newV) -> {
+            if(!newV) {
+                instMemTableView.getSelectionModel().clearSelection();
+            }
+        });
+        
     }
      
 
@@ -159,6 +164,7 @@ public class AppController implements Initializable {
                 int address = data.getAddress();
                 this.simulator.setDataMemPosition(address, t.getNewValue());
                 updateDataInGUI();
+                t.getTableView().getSelectionModel().clearSelection();
             })
         );
         
@@ -177,6 +183,12 @@ public class AppController implements Initializable {
                         setStyle("");
                     }
                 }
+            }
+        });
+        
+        this.instMemTableView.focusedProperty().addListener((ov, oldV, newV) -> {
+            if(!newV) {
+                instMemTableView.getSelectionModel().clearSelection();
             }
         });
         
@@ -203,7 +215,13 @@ public class AppController implements Initializable {
     
     @FXML
     private void handleRunButton(ActionEvent event) {
-        
+        try {
+            this.simulator.run();
+            this.updateDataInGUI();
+        } catch (UnrecognizedInstructionException ex) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erro!");
+            alert.setHeaderText("Instrução não reconhecida!");        }
     }
 
     private void updateDataInGUI() {

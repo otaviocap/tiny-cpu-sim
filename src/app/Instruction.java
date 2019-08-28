@@ -73,7 +73,7 @@ public class Instruction {
     }
     
     private Integer getMemAddress() {
-        return Integer.parseInt(this.binWord.substring(4,8));
+        return Integer.parseInt(this.binWord.substring(4,8), 2);
     }
     
     private String parseAssembly() {
@@ -128,6 +128,9 @@ public class Instruction {
 
     public void setHexWord(String hexWord) {
         this.hexWord = hexWord;
+        this.word = Integer.parseInt(hexWord, 16);
+        this.binWord = this.parseBinWord();
+        this.assembly = this.parseAssembly();
     }
 
     public String getAssembly() {
@@ -145,7 +148,9 @@ public class Instruction {
     public void setBinWord(String binWord) {
         this.binWord = binWord;
     }
-
-   
+    
+    public String toString() {
+        return this.assembly;
+    }  
     
 }

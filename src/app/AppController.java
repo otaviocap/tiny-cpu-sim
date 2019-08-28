@@ -38,7 +38,7 @@ public class AppController implements Initializable {
     @FXML
     private TableColumn addressInstTableColumn;
     @FXML
-    private TableColumn wordInstTableColumn;
+    private TableColumn<Instruction, String> wordInstTableColumn;
     @FXML
     private TableColumn assemblyTableColumn;
     
@@ -103,20 +103,33 @@ public class AppController implements Initializable {
         
         this.instMemTableView.setItems(this.simulator.getInstMem());
         
+        this.wordInstTableColumn.setCellFactory(TextFieldTableCell.<Instruction>forTableColumn());
+        this.wordInstTableColumn.setOnEditCommit(
+            ((CellEditEvent<Instruction, String> t) -> {
+                Instruction inst = (Instruction) t.getTableView().getItems().get(t.getTablePosition().getRow());
+                int address = inst.getAddress();
+                this.simulator.setInstMemPosition(address, t.getNewValue());
+                System.out.println(this.simulator.getInstMem());
+                t.getTableView().refresh();
+            })
+        );
+        
+        
     }
 
     private void initDataMemTableView() {
         this.addressDataTableColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        this.wordDataTableColumn.setCellValueFactory(new PropertyValueFactory<MemData, String>("wordStr"));
+        this.wordDataTableColumn.setCellValueFactory(new PropertyValueFactory<>("wordStr"));
         
         this.dataMemTableView.setItems(this.simulator.getDataMem());
         
         this.wordDataTableColumn.setCellFactory(TextFieldTableCell.<MemData>forTableColumn());
         this.wordDataTableColumn.setOnEditCommit(
-        ((CellEditEvent<MemData, String> t) -> {
-            MemData data = (MemData) t.getTableView().getItems().get(t.getTablePosition().getRow());
-            int address = data.getAddress();
-            this.simulator.setDataMemPosition(address, t.getNewValue());
+            ((CellEditEvent<MemData, String> t) -> {
+                MemData data = (MemData) t.getTableView().getItems().get(t.getTablePosition().getRow());
+                int address = data.getAddress();
+                this.simulator.setDataMemPosition(address, t.getNewValue());
+                t.getTableView().refresh();
             })
         );
         

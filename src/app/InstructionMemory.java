@@ -8,14 +8,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class InstructionMemory {
-    private ArrayList<Instruction> memList;
+    private ObservableList<Instruction> memList;
     
     public InstructionMemory() {
-        memList = new ArrayList<Instruction>();
+        this.memList = FXCollections.observableArrayList();
     }
     
     public InstructionMemory(File memFile) throws FileNotFoundException {
-        memList = new ArrayList<Instruction>();
+        this.memList = FXCollections.observableArrayList();
         Scanner fileScan = new Scanner(memFile);
         
         int addCount = 0;
@@ -26,7 +26,12 @@ public class InstructionMemory {
     }
 
     public ObservableList<Instruction> getMemList() {
-        return FXCollections.observableArrayList(this.memList);
+        return this.memList;
     }   
+
+    void setInst(int address, String wordStr) {
+        Instruction inst = this.memList.get(address);
+        inst.setHexWord(wordStr);
+    }
     
 }

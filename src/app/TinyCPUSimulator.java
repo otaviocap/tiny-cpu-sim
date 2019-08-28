@@ -29,6 +29,10 @@ public class TinyCPUSimulator {
         return dataMem.getMemList();
     }
     
+    public void setInstMemPosition(int address, String wordStr) {
+        this.instMem.setInst(address, wordStr);
+    }    
+    
     public void setDataMemPosition(int address, String wordStr) {
         this.dataMem.setMemData(address, wordStr);
     }

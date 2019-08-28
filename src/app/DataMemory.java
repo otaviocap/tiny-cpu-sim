@@ -25,7 +25,12 @@ class DataMemory {
         }
     }
 
-    ObservableList<MemData> getMemList() {
+    public ObservableList<MemData> getMemList() {
         return FXCollections.observableArrayList(this.memList);
-    }   
+    }
+    
+    public void setMemData(int address, String wordStr) {
+        MemData data = this.memList.get(address);
+        data.setWordStr(wordStr);
+    }
 }

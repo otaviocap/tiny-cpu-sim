@@ -44,6 +44,13 @@ public class MemData {
 
     public void setWordStr(String wordStr) {
         this.wordStr = wordStr;
+        this.wordInt = new Integer(wordStr);
+        this.word = Byte.valueOf(wordStr, 10);
+        
+    }
+    
+    public String toString() {
+        return this.address + " " + this.wordStr + "\n";
     }
     
     

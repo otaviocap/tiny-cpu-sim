@@ -114,10 +114,11 @@ public class AppController implements Initializable {
         this.wordDataTableColumn.setCellFactory(TextFieldTableCell.<MemData>forTableColumn());
         this.wordDataTableColumn.setOnEditCommit(
         ((CellEditEvent<MemData, String> t) -> {
-            ((MemData) t.getTableView().getItems().get(t.getTablePosition().getRow())).setWordInt(Integer.parseInt(t.getNewValue()));
+            MemData data = (MemData) t.getTableView().getItems().get(t.getTablePosition().getRow());
+            int address = data.getAddress();
+            this.simulator.setDataMemPosition(address, t.getNewValue());
             })
         );
-        
         
     }
 }

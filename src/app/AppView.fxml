@@ -8,9 +8,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
   <children>
     <TableView fx:id="instMemTableView" editable="true" layoutX="14.0" layoutY="42.0" prefHeight="419.0" prefWidth="317.0">
       <columns>
@@ -39,7 +40,7 @@
             <Font name="System Bold" size="18.0" fx:id="x11" />
          </font>
       </Label>
-      <Pane layoutX="557.0" layoutY="42.0" prefHeight="252.0" prefWidth="119.0">
+      <Pane layoutX="557.0" layoutY="42.0" prefHeight="229.0" prefWidth="124.0">
          <children>
             <TextField fx:id="raTextField" editable="false" layoutX="53.0" layoutY="13.0" prefHeight="26.0" prefWidth="54.0" />
             <Label layoutX="13.0" layoutY="15.0" text="RA" textAlignment="CENTER">
@@ -65,22 +66,23 @@
                   <Font name="System Bold" size="18.0" fx:id="x11111" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="164.0" text="Z" textAlignment="CENTER">
+            <Label layoutX="25.0" layoutY="161.0" text="Z" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" fx:id="x111111" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="201.0" text="N" textAlignment="CENTER">
+            <Label layoutX="76.0" layoutY="161.0" text="N" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" fx:id="x1111111" />
                </font>
             </Label>
-            <TextField fx:id="zTextField" editable="false" layoutX="53.0" layoutY="162.0" prefHeight="26.0" prefWidth="54.0" />
-            <TextField fx:id="nTextField" editable="false" layoutX="53.0" layoutY="199.0" prefHeight="26.0" prefWidth="54.0" />
+            <Circle fx:id="zCircle" fill="#737373" layoutX="32.0" layoutY="197.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="nCircle" fill="#737373" layoutX="84.0" layoutY="197.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </Pane>
       <Button fx:id="stepButton" layoutX="568.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleStepButton" text="Step" />
       <Button fx:id="runButton" layoutX="643.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleRunButton" text="Run" />
       <Separator layoutX="532.0" layoutY="24.0" orientation="VERTICAL" prefHeight="461.0" prefWidth="0.0" />
+      <Button fx:id="resetButton" layoutX="14.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" />
   </children>
 </AnchorPane>

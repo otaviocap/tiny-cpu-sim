@@ -27,6 +27,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 
 /**
  *
@@ -56,8 +58,9 @@ public class AppController implements Initializable {
     
     @FXML
     private TextField raTextField, rbTextField, pcTextField, riTextField;
+    
     @FXML
-    private TextField zTextField, nTextField;
+    private Circle zCircle, nCircle;
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -223,6 +226,13 @@ public class AppController implements Initializable {
             alert.setTitle("Erro!");
             alert.setHeaderText("Instrução não reconhecida!");        }
     }
+    
+    @FXML 
+    private void handleResetButton(ActionEvent event) {
+        this.simulator = new TinyCPUSimulator();
+        this.initTableViews();
+        this.updateDataInGUI();
+    }
 
     private void updateDataInGUI() {
         this.dataMemTableView.refresh();
@@ -232,10 +242,20 @@ public class AppController implements Initializable {
         this.rbTextField.setText(this.simulator.getRegB().getContent().toString());
         this.pcTextField.setText(this.simulator.getPC().getContent().toString());
         this.riTextField.setText(this.simulator.getRI().getContent().toString());   
+                
+        if(this.simulator.getCcZ()) {
+            this.zCircle.setFill(Paint.valueOf("#90ee90")); //red  (ON)
+        }
+        else {
+            this.zCircle.setFill(Paint.valueOf("#737373")); //gray (OFF)
+        }
         
-        this.zTextField.setText(this.simulator.getCcZ().toString());   
-        this.nTextField.setText(this.simulator.getCcN().toString());   
-        
+        if(this.simulator.getCcN()) {
+            this.nCircle.setFill(Paint.valueOf("#90ee90")); //red  (ON)
+        }
+        else {
+            this.nCircle.setFill(Paint.valueOf("#737373")); //gray (OFF)
+        }
         
     }
 }

@@ -8,14 +8,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 class DataMemory {
-    private ArrayList<MemData> memList;
+    private ObservableList<MemData> memList;
 
     public DataMemory() {
-        memList = new ArrayList<MemData>();
+        memList = FXCollections.observableArrayList();
+        for (int add = 0; add < 16; add++) {
+            memList.add(new MemData(Byte.valueOf("0"), add));
+        }
+        
     }
     
     public DataMemory(File memFile) throws FileNotFoundException {
-        memList = new ArrayList<MemData>();
+        memList = FXCollections.observableArrayList();
         Scanner fileScan = new Scanner(memFile);
         
         int addCount = 0;
@@ -32,5 +36,13 @@ class DataMemory {
     public void setMemData(int address, String wordStr) {
         MemData data = this.memList.get(address);
         data.setWordStr(wordStr);
+    }
+
+    public Integer read(int address) {
+        return this.memList.get(address).getWordInt();
+    }
+
+    public void write(int address, Integer content) {
+        this.memList.get(address).setWordInt(content);
     }
 }

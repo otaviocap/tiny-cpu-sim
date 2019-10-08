@@ -28,6 +28,8 @@ public class MemData {
 
     public void setWordInt(Integer wordInt) {
         this.wordInt = wordInt;
+        this.wordStr = wordInt.toString();
+        this.word = Byte.valueOf(wordStr, 10);
     }
 
     public Integer getAddress() {

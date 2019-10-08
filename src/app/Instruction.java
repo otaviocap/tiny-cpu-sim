@@ -11,6 +11,8 @@ public class Instruction {
     private String binWord;
     private String assembly;
     
+    private boolean assigned;
+    
     private Map<String,String> opcodeToMnemonic;
     private Map<String,String> regToMnemonic;
     private Map<String,String> ccToMnemonic;
@@ -24,7 +26,15 @@ public class Instruction {
         
         this.initTranslationTables();
         this.assembly = this.parseAssembly();
+    }
 
+    public boolean isAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        this.assigned = assigned;
+        this.assembly = this.parseAssembly();
     }
 
     private String parseHexWord() {
@@ -75,15 +85,18 @@ public class Instruction {
     }
     
     public String parseAssembly() {
-        String returnable = this.getOpcode() + " ";
-        if(this.isJumpInstruction()) {
-            returnable += this.getCC() + " ";
-        }
-        else if(this.isRegInstruction()){
-            returnable += this.getReg() + " ";
-        }
-        if(!this.getOpcode().equals("HLT")) {
-            returnable += this.getMemAddress();
+        String returnable = "";
+        if(this.assigned) {
+            returnable = this.getOpcode() + " ";
+            if(this.isJumpInstruction()) {
+                returnable += this.getCC() + " ";
+            }
+            else if(this.isRegInstruction()){
+                returnable += this.getReg() + " ";
+            }
+            if(!this.getOpcode().equals("HLT")) {
+                returnable += this.getMemAddress();
+            }
         }
         return returnable;
     }
@@ -125,6 +138,7 @@ public class Instruction {
     }
 
     public void setHexWord(String hexWord) {
+        this.assigned = true;
         this.hexWord = hexWord;
         this.word = Integer.parseInt(hexWord, 16);
         this.binWord = this.parseBinWord();

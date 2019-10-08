@@ -12,8 +12,10 @@ public class InstructionMemory {
     
     public InstructionMemory() {
         this.memList = FXCollections.observableArrayList();
-        for (int add = 0; add < 16; add++) {
-            this.memList.add(new Instruction(0, add));
+        for (int addCount = 0; addCount < 16; addCount++) {
+            Instruction inst = new Instruction(0, addCount);
+            this.memList.add(inst);
+            inst.setAssigned(false);
         }
     }
     
@@ -22,10 +24,20 @@ public class InstructionMemory {
         Scanner fileScan = new Scanner(memFile);
         
         int addCount = 0;
-        while(fileScan.hasNext()) {
-            this.memList.add(new Instruction(Integer.parseInt(fileScan.nextLine(), 16), addCount));
+        while(fileScan.hasNext() && addCount < 16) {
+            Instruction inst = new Instruction(Integer.parseInt(fileScan.nextLine(), 16), addCount);
+            this.memList.add(inst);
+            inst.setAssigned(true);
             addCount += 1;
         }
+        
+        while(addCount < 16) {
+            Instruction inst = new Instruction(0, addCount);
+            this.memList.add(inst);
+            inst.setAssigned(false);
+        }
+        
+        this.checkForHLT();
     }
 
     public ObservableList<Instruction> getMemList() {
@@ -35,6 +47,7 @@ public class InstructionMemory {
     void setInst(int address, String wordStr) {
         Instruction inst = this.memList.get(address);
         inst.setHexWord(wordStr);
+        this.checkForHLT();
     }
 
     public Instruction read(int address) {
@@ -48,6 +61,19 @@ public class InstructionMemory {
             }
             else {
                 inst.setPcIsHere(false);
+            }
+        }
+    }
+    
+    private void checkForHLT() {
+        boolean hltFound = false;
+        for(Instruction inst : this.memList) {
+            if(inst.getOpcode().equals("HLT")) {
+                hltFound = true;
+                continue;
+            }
+            if(hltFound) {
+                inst.setAssigned(false);
             }
         }
     }

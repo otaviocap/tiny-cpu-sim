@@ -125,6 +125,7 @@ public class AppController implements Initializable {
                 int address = inst.getAddress();
                 this.simulator.setInstMemPosition(address, t.getNewValue());
                 t.getTableView().getSelectionModel().clearSelection();
+                this.updateDataInGUI();
             })
         );
         

@@ -27,6 +27,10 @@ class DataMemory {
             memList.add(new MemData(Byte.valueOf(fileScan.nextLine(), 10), addCount));
             addCount += 1;
         }
+        
+        while(addCount < 16) {
+            memList.add(new MemData(Byte.valueOf("0"), addCount));
+        }
     }
 
     public ObservableList<MemData> getMemList() {

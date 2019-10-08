@@ -37,6 +37,7 @@ public class TinyCPUSimulator {
     
     public void runNextInstruction() throws UnrecognizedInstructionException {
         if(this.hltMode || this.regPC.getContent() >= 15) {
+            this.hltMode = true;
             return;
         }
         
@@ -99,6 +100,8 @@ public class TinyCPUSimulator {
         this.regB.setContent(0);
         this.regPC.setContent(0);
         this.regRI.setContent(0);
+        this.instMem.updatePC(this.regPC.getContent());
+        this.hltMode = false;
         
     }
 

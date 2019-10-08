@@ -229,9 +229,14 @@ public class AppController implements Initializable {
     }
     
     @FXML 
-    private void handleResetButton(ActionEvent event) {
+    private void handleClearButton(ActionEvent event) {
         this.simulator = new TinyCPUSimulator();
         this.initTableViews();
+        this.updateDataInGUI();
+    }
+    
+    @FXML void handleResetButton(ActionEvent event) {
+        this.simulator.resetRegisters();
         this.updateDataInGUI();
     }
 

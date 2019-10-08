@@ -76,7 +76,7 @@ public class Instruction {
     
     public String parseAssembly() {
         String returnable = this.getOpcode() + " ";
-        if(this.isJumpInstruction()) {
+        if(this.isCondJumpInstruction()) {
             returnable += this.getCC() + " ";
         }
         else if(this.isRegInstruction()){
@@ -90,6 +90,10 @@ public class Instruction {
     
     public boolean isJumpInstruction() {
         return this.getOpcode().equals("JMP") || this.getOpcode().equals("JC");
+    }
+    
+    public boolean isCondJumpInstruction() {
+        return this.getOpcode().equals("JC");
     }
     
     public boolean isRegInstruction() {

@@ -6,6 +6,8 @@ import java.util.Observable;
 import javafx.collections.ObservableList;
 
 public class TinyCPUSimulator {
+    private final int TIMEOUT = 10000;
+    
     private InstructionMemory instMem;
     private DataMemory dataMem;
     
@@ -29,9 +31,14 @@ public class TinyCPUSimulator {
         this.hltMode = false;
     }
     
-    public void run() throws UnrecognizedInstructionException {  //until HLT
+    public void run() throws UnrecognizedInstructionException, TimeoutException {  //until HLT
+        int contTimeout = 0;
         while(!this.hltMode) {
             this.runNextInstruction();
+            contTimeout ++;
+            if(contTimeout > TIMEOUT) {
+                throw new TimeoutException();
+            }
         }
     }
     

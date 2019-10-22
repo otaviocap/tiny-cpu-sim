@@ -11,13 +11,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
-import app.SimCPU;
 import java.io.FileNotFoundException;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
@@ -80,12 +76,14 @@ public class AppController implements Initializable {
             if (instMemFile != null) {
                 this.simulator.parseInstMemFile(instMemFile);
                 this.initInstMemTableView();
+                this.updateDataInGUI();
             }
         }
         catch(FileNotFoundException fnfe) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erro!");
             alert.setHeaderText("Erro ao abrir o arquivo!");
+            alert.showAndWait();
         }
     }
     
@@ -106,6 +104,7 @@ public class AppController implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erro!");
             alert.setHeaderText("Erro ao abrir o arquivo!");
+            alert.showAndWait();
         }
         
     }
@@ -137,9 +136,16 @@ public class AppController implements Initializable {
                     setStyle("");
                 }
                 else {
+                    boolean wasPainted = false;
                     if (Objects.equals(item.getAddress(), simulator.getPC().getContent())) {
                         setStyle("-fx-background-color: tomato;");
-                    } else {
+                        wasPainted = true;
+                    }
+                    if (simulator.getCurrentInstruction().isJumpInstruction() && Objects.equals(simulator.getCurrentInstruction().getMemAddress(), item.getAddress())) {
+                        setStyle("-fx-background-color: yellow;");
+                        wasPainted = true;
+                    }
+                    if(!wasPainted) {
                         setStyle("");
                     }
                 }
@@ -181,7 +187,9 @@ public class AppController implements Initializable {
                 }
                 else {
                     
-                    if (Objects.equals(item.getAddress(), simulator.getCurrentInstruction().getMemAddress())) {
+                    if (simulator.getCurrentInstruction().isAssigned() &&
+                            !simulator.getCurrentInstruction().isJumpInstruction() && 
+                            Objects.equals(item.getAddress(), simulator.getCurrentInstruction().getMemAddress())) {
                         setStyle("-fx-background-color: lightgreen;");
                     } else {
                         setStyle("");
@@ -213,6 +221,7 @@ public class AppController implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erro!");
             alert.setHeaderText("Instrução não reconhecida!");
+            alert.showAndWait();
         }
         
     }
@@ -222,10 +231,23 @@ public class AppController implements Initializable {
         try {
             this.simulator.run();
             this.updateDataInGUI();
-        } catch (UnrecognizedInstructionException ex) {
+        } 
+        catch (UnrecognizedInstructionException ex) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erro!");
-            alert.setHeaderText("Instrução não reconhecida!");        }
+            alert.setHeaderText("Instrução não reconhecida!");        
+            alert.showAndWait();
+        }
+        catch (TimeoutException ex) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erro!");
+            alert.setHeaderText("Programa em looping!");     
+            alert.showAndWait();
+            /* Reseting CPU */
+            this.simulator.resetRegisters();
+            this.updateDataInGUI();
+        }
+        
     }
     
     @FXML 

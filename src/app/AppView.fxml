@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="691.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.AppController">
+<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
   <children>
     <TableView fx:id="instMemTableView" editable="true" layoutX="14.0" layoutY="42.0" prefHeight="419.0" prefWidth="323.0">
       <columns>
-        <TableColumn editable="false" prefWidth="38.0" sortable="false" text="PC" fx:id="pcInstTableColumn" />
-        <TableColumn editable="false" prefWidth="67.0" sortable="false" text="Add." fx:id="addressInstTableColumn" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" sortable="false" text="Word (HEX)" fx:id="wordInstTableColumn" />
-        <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" sortable="false" text="Instruction" fx:id="assemblyTableColumn" />
+        <TableColumn fx:id="pcInstTableColumn" editable="false" prefWidth="38.0" sortable="false" text="PC" />
+        <TableColumn fx:id="addressInstTableColumn" editable="false" prefWidth="67.0" sortable="false" text="Add." />
+        <TableColumn fx:id="wordInstTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" sortable="false" text="Word (HEX)" />
+        <TableColumn fx:id="assemblyTableColumn" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" sortable="false" text="Instruction" />
       </columns>
     </TableView>
     <Label layoutX="68.0" layoutY="14.0" text="Instructions Memory">
@@ -33,10 +28,10 @@
       </font>
     </Label>
     <Button layoutX="108.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleInstructionMemoryLoad" text="Load Instructions" />
-    <TableView fx:id="dataMemTableView" editable="true" layoutX="347.0" layoutY="42.0" prefHeight="419.0" prefWidth="173.0">
+    <TableView fx:id="dataMemTableView" editable="true" layoutX="347.0" layoutY="42.0" prefHeight="419.0" prefWidth="184.0">
       <columns>
-        <TableColumn editable="false" prefWidth="67.0" sortable="false" text="Add." fx:id="addressDataTableColumn" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="91.0" sortable="false" text="Word (DEC)" fx:id="wordDataTableColumn" />
+        <TableColumn fx:id="addressDataTableColumn" editable="false" prefWidth="67.0" sortable="false" text="Add." />
+        <TableColumn fx:id="wordDataTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="91.0" sortable="false" text="Word (DEC)" />
       </columns>
     </TableView>
     <Label font="$x1" layoutX="359.0" layoutY="14.0" text="Data Memory" />
@@ -64,8 +59,8 @@
     </Pane>
     <Button fx:id="stepButton" layoutX="625.0" layoutY="440.0" mnemonicParsing="false" onAction="#handleStepButton" text="Step" />
     <Button fx:id="runButton" layoutX="629.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleRunButton" text="Run" />
-    <Separator layoutX="532.0" layoutY="24.0" orientation="VERTICAL" prefHeight="461.0" prefWidth="0.0" />
+    <Separator layoutX="538.0" layoutY="21.0" orientation="VERTICAL" prefHeight="461.0" prefWidth="0.0" />
     <Button id="resetButton" fx:id="clearButton" layoutX="14.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear" />
-    <Button id="clearButton" fx:id="resetButton" layoutX="544.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" />
+    <Button id="clearButton" fx:id="resetButton" layoutX="551.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" />
   </children>
 </AnchorPane>

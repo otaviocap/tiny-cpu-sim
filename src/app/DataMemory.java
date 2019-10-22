@@ -30,6 +30,7 @@ class DataMemory {
         
         while(addCount < 16) {
             memList.add(new MemData(Byte.valueOf("0"), addCount));
+            addCount += 1;
         }
     }
 

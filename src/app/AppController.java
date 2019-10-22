@@ -83,6 +83,7 @@ public class AppController implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erro!");
             alert.setHeaderText("Erro ao abrir o arquivo!");
+            alert.showAndWait();
         }
     }
     
@@ -103,6 +104,7 @@ public class AppController implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erro!");
             alert.setHeaderText("Erro ao abrir o arquivo!");
+            alert.showAndWait();
         }
         
     }
@@ -219,6 +221,7 @@ public class AppController implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erro!");
             alert.setHeaderText("Instrução não reconhecida!");
+            alert.showAndWait();
         }
         
     }
@@ -228,10 +231,23 @@ public class AppController implements Initializable {
         try {
             this.simulator.run();
             this.updateDataInGUI();
-        } catch (UnrecognizedInstructionException ex) {
+        } 
+        catch (UnrecognizedInstructionException ex) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erro!");
-            alert.setHeaderText("Instrução não reconhecida!");        }
+            alert.setHeaderText("Instrução não reconhecida!");        
+            alert.showAndWait();
+        }
+        catch (TimeoutException ex) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erro!");
+            alert.setHeaderText("Programa em looping!");     
+            alert.showAndWait();
+            /* Reseting CPU */
+            this.simulator.resetRegisters();
+            this.updateDataInGUI();
+        }
+        
     }
     
     @FXML 

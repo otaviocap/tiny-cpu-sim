@@ -76,6 +76,7 @@ public class AppController implements Initializable {
             if (instMemFile != null) {
                 this.simulator.parseInstMemFile(instMemFile);
                 this.initInstMemTableView();
+                this.updateDataInGUI();
             }
         }
         catch(FileNotFoundException fnfe) {
@@ -133,9 +134,16 @@ public class AppController implements Initializable {
                     setStyle("");
                 }
                 else {
+                    boolean wasPainted = false;
                     if (Objects.equals(item.getAddress(), simulator.getPC().getContent())) {
                         setStyle("-fx-background-color: tomato;");
-                    } else {
+                        wasPainted = true;
+                    }
+                    if (simulator.getCurrentInstruction().isJumpInstruction() && Objects.equals(simulator.getCurrentInstruction().getMemAddress(), item.getAddress())) {
+                        setStyle("-fx-background-color: yellow;");
+                        wasPainted = true;
+                    }
+                    if(!wasPainted) {
                         setStyle("");
                     }
                 }
@@ -177,7 +185,9 @@ public class AppController implements Initializable {
                 }
                 else {
                     
-                    if (Objects.equals(item.getAddress(), simulator.getCurrentInstruction().getMemAddress())) {
+                    if (simulator.getCurrentInstruction().isAssigned() &&
+                            !simulator.getCurrentInstruction().isJumpInstruction() && 
+                            Objects.equals(item.getAddress(), simulator.getCurrentInstruction().getMemAddress())) {
                         setStyle("-fx-background-color: lightgreen;");
                     } else {
                         setStyle("");

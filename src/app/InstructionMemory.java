@@ -35,6 +35,7 @@ public class InstructionMemory {
             Instruction inst = new Instruction(0, addCount);
             this.memList.add(inst);
             inst.setAssigned(false);
+            addCount += 1;
         }
         
         this.checkForHLT();

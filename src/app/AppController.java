@@ -16,15 +16,19 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 /**
  *
@@ -57,6 +61,20 @@ public class AppController implements Initializable {
     
     @FXML
     private Circle zCircle, nCircle;
+    @FXML
+    private Font x1;
+    @FXML
+    private Color x2;
+    @FXML
+    private Button stepButton;
+    @FXML
+    private Button runButton;
+    @FXML
+    private Button clearButton;
+    @FXML
+    private Button resetButton;
+    @FXML
+    private TextArea loadInlineTextArea;
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -285,5 +303,14 @@ public class AppController implements Initializable {
             this.nCircle.setFill(Paint.valueOf("#737373")); //gray (OFF)
         }
         
+    }
+
+    @FXML
+    private void handleLoadInline(ActionEvent event) {
+        String inlineInstructions = this.loadInlineTextArea.getText();
+        this.simulator.parseInstMemFile(inlineInstructions);
+        this.initInstMemTableView();
+        this.updateDataInGUI();
+        this.loadInlineTextArea.setText("");
     }
 }

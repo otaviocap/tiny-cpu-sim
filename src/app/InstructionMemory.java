@@ -41,6 +41,28 @@ public class InstructionMemory {
         this.checkForHLT();
     }
 
+    InstructionMemory(String inlineInstructions) {
+        this.memList = FXCollections.observableArrayList();
+        String[] listCodes = inlineInstructions.split("\n");
+        
+        int addCount = 0;
+        for(String code : listCodes) {
+            if(!code.equals("")) {
+                Instruction inst = new Instruction(Integer.parseInt(code, 16), addCount);
+                this.memList.add(inst);
+                inst.setAssigned(true);
+                addCount += 1;
+            }
+        }
+        
+        while(addCount < 16) {
+            Instruction inst = new Instruction(0, addCount);
+            this.memList.add(inst);
+            inst.setAssigned(false);
+            addCount += 1;
+        }
+    }
+
     public ObservableList<Instruction> getMemList() {
         return this.memList;
     }   

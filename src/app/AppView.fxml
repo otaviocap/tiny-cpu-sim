@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="829.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
   <children>
     <TableView fx:id="instMemTableView" editable="true" layoutX="14.0" layoutY="42.0" prefHeight="419.0" prefWidth="323.0">
       <columns>
@@ -62,5 +63,7 @@
     <Separator layoutX="538.0" layoutY="21.0" orientation="VERTICAL" prefHeight="461.0" prefWidth="0.0" />
     <Button id="resetButton" fx:id="clearButton" layoutX="14.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear" />
     <Button id="clearButton" fx:id="resetButton" layoutX="551.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" />
+      <TextArea fx:id="loadInlineTextArea" layoutX="685.0" layoutY="49.0" prefHeight="303.0" prefWidth="124.0" />
+      <Button layoutX="702.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleLoadInline" text="Load Inline" />
   </children>
 </AnchorPane>

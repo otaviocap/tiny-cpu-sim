@@ -120,6 +120,10 @@ public class TinyCPUSimulator {
         this.instMem = new InstructionMemory(instMemFile);
     }
     
+    void parseInstMemFile(String inlineInstructions) {
+        this.instMem = new InstructionMemory(inlineInstructions);
+    }
+    
     void parseDataMemFile(File dataMemFile) throws FileNotFoundException {
         this.dataMem = new DataMemory(dataMemFile);
     }
@@ -168,5 +172,6 @@ public class TinyCPUSimulator {
     public Boolean getCcN() {
         return ccN;
     }
+
     
 }

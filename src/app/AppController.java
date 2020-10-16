@@ -61,20 +61,11 @@ public class AppController implements Initializable {
     
     @FXML
     private Circle zCircle, nCircle;
-    @FXML
-    private Font x1;
-    @FXML
-    private Color x2;
-    @FXML
-    private Button stepButton;
-    @FXML
-    private Button runButton;
-    @FXML
-    private Button clearButton;
-    @FXML
-    private Button resetButton;
-    @FXML
+    
+    
+    /*@FXML
     private TextArea loadInlineTextArea;
+    */
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -305,12 +296,12 @@ public class AppController implements Initializable {
         
     }
 
-    @FXML
+    /*@FXML
     private void handleLoadInline(ActionEvent event) {
         String inlineInstructions = this.loadInlineTextArea.getText();
         this.simulator.parseInstMemFile(inlineInstructions);
         this.initInstMemTableView();
         this.updateDataInGUI();
         this.loadInlineTextArea.setText("");
-    }
+    }*/
 }

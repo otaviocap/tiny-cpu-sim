@@ -10,7 +10,7 @@ public class TinyCPUSimulator {
     private InstructionMemory instMem;
     private DataMemory dataMem;
     
-    private Register regA, regB, regPC, regRI;
+    private Register regA, regB, regC, regX, regPC, regRI;
     private Boolean ccZ, ccN;   
     
     private Boolean hltMode;
@@ -21,6 +21,8 @@ public class TinyCPUSimulator {
         
         this.regA = new Register(0, 8);
         this.regB = new Register(0, 8);
+        this.regC = new Register(0, 8);
+        this.regX = new Register(0, 8);
         this.regPC = new Register(0, 8);
         this.regRI = new Register(0, 16);
         
@@ -47,56 +49,96 @@ public class TinyCPUSimulator {
             return;
         }
         
-        Instruction current = this.instMem.read(this.regPC.getContent());
-        this.regRI.setContent(current.getWord());
+        Instruction currInst = this.instMem.read(this.regPC.getContent());
+        this.regRI.setContent(currInst.getWord());
         this.regPC.add(1);
         
         Register targetReg = null;
         
-        if(current.isRegInstruction()) {
-            targetReg = current.getReg().equals("RA") ? this.regA : this.regB;
+        if(currInst.isRegInstruction()) {
+            targetReg = this.getTargetRegister(currInst);
         }
         
-        if(current.getOpcode().equals("LDR")) {  //LDR    
-            int readAddress = current.getMemAddress();
-            targetReg.setContent(this.dataMem.read(readAddress));
+        int memAddress = this.getMemAddress(currInst);
+        
+        if(currInst.getOpcode().equals("LDR")) {  //LDR    
+            if(currInst.getMode().equals("01")) {  //immediate mode
+                targetReg.setContent(currInst.getMemAddress());
+            }
+            else {
+                targetReg.setContent(this.dataMem.read(memAddress));
+            }
         }
-        else if(current.getOpcode().equals("STR")) {  //STR
-            int writeAddress = current.getMemAddress();
-            this.dataMem.write(writeAddress, targetReg.getContent());
+        else if(currInst.getOpcode().equals("STR")) {  //STR
+            this.dataMem.write(memAddress, targetReg.getContent());
         }
-        else if(current.getOpcode().equals("ADD")) {  //ADD
-            int readOperandAddress = current.getMemAddress();
-            Integer operand = this.dataMem.read(readOperandAddress);
+        else if(currInst.getOpcode().equals("ADD")) {  //ADD
+            Integer operand;
+            if(currInst.getMode().equals("01")) {  //immediate mode
+                operand = currInst.getMemAddress();
+            }
+            else {
+                operand = this.dataMem.read(memAddress);
+            }
             targetReg.add(operand);
         }
-        else if(current.getOpcode().equals("SUB")) {  //STR
-            int readOperandAddress = current.getMemAddress();
-            Integer operand = this.dataMem.read(readOperandAddress);
+        else if(currInst.getOpcode().equals("SUB")) {  //STR
+            Integer operand;
+            if(currInst.getMode().equals("01")) {  //immediate mode
+                operand = currInst.getMemAddress();
+            }
+            else {
+                operand = this.dataMem.read(memAddress);
+            }
             targetReg.sub(operand);
         }
-        else if(current.getOpcode().equals("JMP")) {  //JMP
-            int jumpAddress = current.getMemAddress();
-            this.regPC.setContent(jumpAddress);
+        else if(currInst.getOpcode().equals("JMP")) {  //JMP
+            this.regPC.setContent(memAddress);
         }
-        else if(current.getOpcode().equals("JC")) {  //JC
-            int jumpAddress = current.getMemAddress();
-            if(current.getCC().equals("Z") && this.ccZ || current.getCC().equals("N") && this.ccN) {
-                this.regPC.setContent(jumpAddress);
+        else if(currInst.getOpcode().equals("JC")) {  //JC
+            if(currInst.getCC().equals("Z") && this.ccZ || currInst.getCC().equals("N") && this.ccN) {
+                this.regPC.setContent(memAddress);
             }            
         }
-        else if(current.getOpcode().equals("HLT")) {  //HLT
+        else if(currInst.getOpcode().equals("HLT")) {  //HLT
             this.hltMode = true;
         }
         else {
             throw new UnrecognizedInstructionException();
         }
         
-        if(current.isRegInstruction()) {
+        if(currInst.isRegInstruction()) {
             this.updateConditionCodes(targetReg.getContent());
         }
         
         this.instMem.updatePC(this.regPC.getContent());
+    }
+    
+    private int getMemAddress(Instruction inst) {
+        if(inst.getMode().equals("00")) { //direct mode
+            return inst.getMemAddress();
+        }
+        else { //indexing mode
+            return inst.getMemAddress() + this.regX.getContent();
+        }
+    }
+    
+    private Register getTargetRegister(Instruction inst) {
+        if(inst.getReg().equals("RA")) {
+            return this.regA;
+        }
+        else if(inst.getReg().equals("RB")) {
+            return this.regB;
+        }
+        else if(inst.getReg().equals("RC")) {
+            return this.regC;
+        }
+        else if(inst.getReg().equals("RX")) {
+            return this.regX;
+        }
+        else {
+            return null;
+        }
     }
     
     public void resetRegisters() {
@@ -104,6 +146,8 @@ public class TinyCPUSimulator {
         this.ccZ = false;
         this.regA.setContent(0);
         this.regB.setContent(0);
+        this.regC.setContent(0);
+        this.regX.setContent(0);
         this.regPC.setContent(0);
         this.regRI.setContent(0);
         this.instMem.updatePC(this.regPC.getContent());
@@ -149,6 +193,14 @@ public class TinyCPUSimulator {
 
     public Register getRegB() {
         return regB;
+    }
+
+    public Register getRegC() {
+        return regC;
+    }
+
+    public Register getRegX() {
+        return regX;
     }
 
     public Register getPC() {

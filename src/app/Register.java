@@ -50,5 +50,8 @@ public class Register {
         this.bitWidht = bitWidht;
     }
     
+    public String getHexContent() {
+        return Integer.toHexString(this.content);
+    }
     
 }

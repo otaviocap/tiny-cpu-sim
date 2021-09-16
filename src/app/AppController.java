@@ -16,19 +16,15 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
 
 /**
  *
@@ -57,7 +53,7 @@ public class AppController implements Initializable {
     private TableColumn<MemData, String> wordDataTableColumn;
     
     @FXML
-    private TextField raTextField, rbTextField, pcTextField, riTextField;
+    private TextField raTextField, rbTextField, rcTextField, rxTextField, pcTextField, riTextField;
     
     @FXML
     private Circle zCircle, nCircle;
@@ -277,8 +273,11 @@ public class AppController implements Initializable {
         
         this.raTextField.setText(this.simulator.getRegA().getContent().toString());
         this.rbTextField.setText(this.simulator.getRegB().getContent().toString());
+        this.rcTextField.setText(this.simulator.getRegC().getContent().toString());
+        this.rxTextField.setText(this.simulator.getRegX().getContent().toString());
+        
         this.pcTextField.setText(this.simulator.getPC().getContent().toString());
-        this.riTextField.setText(this.simulator.getRI().getContent().toString());   
+        this.riTextField.setText(this.simulator.getRI().getHexContent());   
                 
         if(this.simulator.getCcZ()) {
             this.zCircle.setFill(Paint.valueOf("#90ee90")); //red  (ON)

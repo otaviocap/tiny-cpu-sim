@@ -2,7 +2,6 @@ package app;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Observable;
 import javafx.collections.ObservableList;
 
 public class TinyCPUSimulator {
@@ -23,7 +22,7 @@ public class TinyCPUSimulator {
         this.regA = new Register(0, 8);
         this.regB = new Register(0, 8);
         this.regPC = new Register(0, 8);
-        this.regRI = new Register(0, 8);
+        this.regRI = new Register(0, 16);
         
         this.ccZ = false;
         this.ccN = false;

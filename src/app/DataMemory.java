@@ -9,10 +9,11 @@ import javafx.collections.ObservableList;
 
 class DataMemory {
     private ObservableList<MemData> memList;
+    private final int DATA_MEM_SIZE = 256;
 
     public DataMemory() {
         memList = FXCollections.observableArrayList();
-        for (int add = 0; add < 16; add++) {
+        for (int add = 0; add < DATA_MEM_SIZE; add++) {
             memList.add(new MemData(Byte.valueOf("0"), add));
         }
         
@@ -28,7 +29,7 @@ class DataMemory {
             addCount += 1;
         }
         
-        while(addCount < 16) {
+        while(addCount < DATA_MEM_SIZE) {
             memList.add(new MemData(Byte.valueOf("0"), addCount));
             addCount += 1;
         }

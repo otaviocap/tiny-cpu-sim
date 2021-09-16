@@ -38,12 +38,12 @@ public class Instruction {
     }
 
     private String parseHexWord() {
-        return String.format("%02x", this.word);
+        return String.format("%04x", this.word);
     }
     
     private String parseBinWord() {
         String bin = Integer.toBinaryString(this.word);
-        while(bin.length() < 8) {
+        while(bin.length() < 16) {
             bin = "0" + bin;
         }
         return bin;        
@@ -60,8 +60,10 @@ public class Instruction {
         this.opcodeToMnemonic.put("111", "HLT");
         
         this.regToMnemonic = new TreeMap<String,String>();
-        this.regToMnemonic.put("0", "RA");
-        this.regToMnemonic.put("1", "RB");
+        this.regToMnemonic.put("00", "RA");
+        this.regToMnemonic.put("01", "RB");
+        this.regToMnemonic.put("10", "RC");
+        this.regToMnemonic.put("11", "RX");
         
         this.ccToMnemonic = new TreeMap<String,String>();
         this.ccToMnemonic.put("0", "Z");
@@ -73,15 +75,19 @@ public class Instruction {
     }
     
     public String getReg() {
-        return this.regToMnemonic.get(this.binWord.substring(3, 4));
+        return this.regToMnemonic.get(this.binWord.substring(3, 5));
     }
     
     public String getCC() {
-        return this.ccToMnemonic.get(this.binWord.substring(3, 4));
+        return this.ccToMnemonic.get(this.binWord.substring(5, 6));
+    }
+    
+    public String getMode() {
+        return this.binWord.substring(6, 8);
     }
     
     public Integer getMemAddress() {
-        return Integer.parseInt(this.binWord.substring(4,8), 2);
+        return Integer.parseInt(this.binWord.substring(8,16), 2);
     }
     
     public String parseAssembly() {
@@ -95,7 +101,15 @@ public class Instruction {
                 returnable += this.getReg() + " ";
             }
             if(!this.getOpcode().equals("HLT")) {
-                returnable += this.getMemAddress();
+                if(this.getMode().equals("00")) {
+                    returnable += this.getMemAddress();
+                }
+                else if(this.getMode().equals("01")) {
+                    returnable += "#" + this.getMemAddress();
+                }
+                else {
+                    returnable += this.getMemAddress() + ",X";
+                }
             }
         }
         return returnable;

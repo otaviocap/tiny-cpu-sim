@@ -177,6 +177,10 @@ public class Instruction {
 
     public void setBinWord(String binWord) {
         this.binWord = binWord;
+        this.assigned = true;
+        this.word = Integer.parseInt(hexWord, 16);
+        this.hexWord = String.format("%04x", this.word);
+        this.assembly = this.parseAssembly();
     }
     
     public String toString() {

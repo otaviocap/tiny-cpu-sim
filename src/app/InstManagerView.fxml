@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="208.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.InstManagerController">
+   <children>
+      <ComboBox fx:id="instComboBox" layoutX="14.0" layoutY="35.0" prefHeight="29.0" prefWidth="91.0" />
+      <Label layoutX="14.0" layoutY="14.0" text="INSTRUCTION">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="regComboBox" layoutX="116.0" layoutY="35.0" prefHeight="29.0" prefWidth="74.0" />
+      <Label layoutX="116.0" layoutY="14.0" text="REG">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="198.0" layoutY="14.0" text="CC">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="ccComboBox" layoutX="200.0" layoutY="35.0" prefHeight="29.0" prefWidth="55.0" />
+      <ComboBox fx:id="modeComboBox" layoutX="264.0" layoutY="35.0" prefHeight="29.0" prefWidth="89.0" />
+      <Label layoutX="264.0" layoutY="14.0" text="MODE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="memTextField" layoutX="360.0" layoutY="35.0" prefHeight="29.0" prefWidth="91.0" />
+      <Label layoutX="360.0" layoutY="14.0" text="MEM/VALUE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Circle fx:id="c15" fill="#9e9e9e" layoutX="21.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c14" fill="#9e9e9e" layoutX="40.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c13" fill="#9e9e9e" layoutX="60.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c12" fill="#9e9e9e" layoutX="79.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c8" fill="#9e9e9e" layoutX="155.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c9" fill="#9e9e9e" layoutX="136.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c10" fill="#9e9e9e" layoutX="116.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c11" fill="#9e9e9e" layoutX="97.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c3" fill="#9e9e9e" layoutX="250.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c2" fill="#9e9e9e" layoutX="269.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c1" fill="#9e9e9e" layoutX="289.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c0" fill="#9e9e9e" layoutX="308.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c4" fill="#9e9e9e" layoutX="232.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c5" fill="#9e9e9e" layoutX="213.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c6" fill="#9e9e9e" layoutX="193.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="c7" fill="#9e9e9e" layoutX="174.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="15.0" layoutY="83.0" text="BINARY CODE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="141.0" text="HEX CODE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="hexCodeTextField" editable="false" layoutX="16.0" layoutY="159.0" prefHeight="29.0" prefWidth="97.0" />
+      <Label layoutX="126.0" layoutY="141.0" text="ASSEMBLY">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="assemblyTextField" editable="false" layoutX="125.0" layoutY="159.0" prefHeight="29.0" prefWidth="192.0" />
+      <Button layoutX="406.0" layoutY="159.0" mnemonicParsing="false" text="Add" />
+   </children>
+</AnchorPane>

@@ -13,7 +13,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
@@ -25,6 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 /**
  *
@@ -58,6 +63,7 @@ public class AppController implements Initializable {
     @FXML
     private Circle zCircle, nCircle;
     
+    private InstManagerController instManagerController;
     
     /*@FXML
     private TextArea loadInlineTextArea;
@@ -68,6 +74,21 @@ public class AppController implements Initializable {
         this.simulator = new TinyCPUSimulator();
         this.initTableViews();
         this.updateDataInGUI();
+        
+        try {
+        
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("InstManagerView.fxml"));
+            Parent root = loader.load();
+
+            instManagerController = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show(); 
+        }
+        catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
     
     @FXML

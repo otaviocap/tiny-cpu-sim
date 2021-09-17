@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Objects;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -29,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -87,8 +89,13 @@ public class AppController implements Initializable {
             instManagerController.setCurrentInst(this.simulator.getInstMem().get(0));
             
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
             stage.show(); 
+            
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            double y = bounds.getMinY() + (bounds.getHeight() - scene.getHeight()) * 0.1;
+            stage.setY(y);
         }
         catch(IOException ioe) {
             ioe.printStackTrace();

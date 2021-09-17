@@ -2,8 +2,10 @@ package app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class SimCPU extends Application {
@@ -17,6 +19,10 @@ public class SimCPU extends Application {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+        double y = bounds.getMinY() + (bounds.getHeight() - scene.getHeight()) * 0.7;
+        stage.setY(y);
     }  
     
     public static Scene getScene() {

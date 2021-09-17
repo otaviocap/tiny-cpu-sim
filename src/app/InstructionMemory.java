@@ -18,16 +18,25 @@ public class InstructionMemory {
         }
     }
     
+    @SuppressWarnings("empty-statement")
     public InstructionMemory(File memFile) throws FileNotFoundException {
         this.memList = FXCollections.observableArrayList();
         Scanner fileScan = new Scanner(memFile);
         
+        while(!fileScan.nextLine().equals("INST"));                    
+        
         int addCount = 0;
-        while(fileScan.hasNext() && addCount < INST_MEM_SIZE) {
-            Instruction inst = new Instruction(addCount, Integer.parseInt(fileScan.nextLine(), 16));
+        
+        String line = "";
+        line = fileScan.nextLine();
+        
+        while(!line.equals("DATA") && addCount < INST_MEM_SIZE) {
+            Instruction inst = new Instruction(addCount, Integer.parseInt(line, 16));
             this.memList.add(inst);
             inst.setAssigned(true);
             addCount += 1;
+            
+            line = fileScan.nextLine();
         }
         
         while(addCount < INST_MEM_SIZE) {

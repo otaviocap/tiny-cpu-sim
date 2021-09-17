@@ -103,16 +103,18 @@ public class AppController implements Initializable {
     }
     
     @FXML
-    public void handleInstructionMemoryLoad(ActionEvent event) {
+    public void handleMemoryLoad(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         
-        File instMemFile = fileChooser.showOpenDialog(SimCPU.getScene().getWindow());
+        File memFile = fileChooser.showOpenDialog(SimCPU.getScene().getWindow());
         
         try { 
-            if (instMemFile != null) {
-                this.simulator.parseInstMemFile(instMemFile);
+            if (memFile != null) {
+                this.simulator.parseInstMemFile(memFile);
                 this.initInstMemTableView();
+                this.simulator.parseDataMemFile(memFile);
+                this.initDataMemTableView();
                 this.updateDataInGUI();
             }
         }
@@ -124,28 +126,6 @@ public class AppController implements Initializable {
         }
     }
     
-    @FXML
-    public void handleDataMemoryLoad(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        
-        File dataMemFile = fileChooser.showOpenDialog(SimCPU.getScene().getWindow());
-        
-        try { 
-            if (dataMemFile != null) {
-                this.simulator.parseDataMemFile(dataMemFile);
-                this.initDataMemTableView();
-            }
-        }
-        catch(FileNotFoundException fnfe) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Erro!");
-            alert.setHeaderText("Erro ao abrir o arquivo!");
-            alert.showAndWait();
-        }
-        
-    }
-
     private void initInstMemTableView() {
         this.addressInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         this.pcInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("pcIsHere"));

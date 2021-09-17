@@ -33,15 +33,14 @@
         <Font name="System Bold" size="18.0" fx:id="x1" />
       </font>
     </Label>
-    <Button layoutX="108.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleInstructionMemoryLoad" text="Load Instructions" />
+    <Button layoutX="6.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleMemoryLoad" text="Load Memory" />
     <TableView fx:id="dataMemTableView" editable="true" layoutX="347.0" layoutY="42.0" prefHeight="434.0" prefWidth="184.0">
       <columns>
         <TableColumn fx:id="addressDataTableColumn" editable="false" prefWidth="67.0" sortable="false" text="Add." />
         <TableColumn fx:id="wordDataTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="91.0" sortable="false" text="Word (DEC)" />
       </columns>
     </TableView>
-    <Label font="$x1" layoutX="359.0" layoutY="14.0" text="Data Memory" />
-    <Button layoutX="397.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleDataMemoryLoad" text="Load Data" />
+    <Label font="$x1" layoutX="378.0" layoutY="14.0" text="Data Memory" />
     <Label font="$x1" layoutX="564.0" layoutY="14.0" text="Registers" textAlignment="CENTER" />
     <Pane layoutX="551.0" layoutY="42.0" prefHeight="336.0" prefWidth="124.0">
       <children>
@@ -70,8 +69,8 @@
     <Button fx:id="stepButton" layoutX="625.0" layoutY="440.0" mnemonicParsing="false" onAction="#handleStepButton" text="Step" />
     <Button fx:id="runButton" layoutX="627.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleRunButton" text="Run" />
     <Separator layoutX="539.0" layoutY="21.0" orientation="VERTICAL" prefHeight="484.0" prefWidth="5.0" />
-    <Button id="resetButton" fx:id="clearButton" layoutX="14.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear" />
+    <Button id="resetButton" fx:id="clearButton" layoutX="426.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear Memory" />
     <Button id="clearButton" fx:id="resetButton" layoutX="551.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" />
-      <Button fx:id="editInstButton" layoutX="295.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleEditButton" text="Edit" />
+      <Button fx:id="editInstButton" layoutX="121.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleEditButton" text="Save Memory" />
   </children>
 </AnchorPane>

@@ -19,9 +19,12 @@ class DataMemory {
         
     }
     
+    @SuppressWarnings("empty-statement")
     public DataMemory(File memFile) throws FileNotFoundException {
         memList = FXCollections.observableArrayList();
         Scanner fileScan = new Scanner(memFile);
+        
+        while(!fileScan.nextLine().equals("DATA"));
         
         int addCount = 0;
         while(fileScan.hasNext()) {

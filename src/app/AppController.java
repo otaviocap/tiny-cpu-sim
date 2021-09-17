@@ -65,6 +65,8 @@ public class AppController implements Initializable {
     
     private InstManagerController instManagerController;
     
+    private int selectedPos = -1;
+    
     /*@FXML
     private TextArea loadInlineTextArea;
     */
@@ -73,7 +75,7 @@ public class AppController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.simulator = new TinyCPUSimulator();
         this.initTableViews();
-        this.updateDataInGUI();
+        this.updateDataInGUI();       
         
         try {
         
@@ -81,6 +83,8 @@ public class AppController implements Initializable {
             Parent root = loader.load();
 
             instManagerController = loader.getController();
+            instManagerController.setAppController(this);
+            instManagerController.setCurrentInst(this.simulator.getInstMem().get(0));
             
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -184,6 +188,13 @@ public class AppController implements Initializable {
             }
         });
         
+        this.instMemTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if(newSelection != null) {
+                this.instManagerController.setCurrentInst(newSelection);
+            }
+            //selectedPos = this.instMemTableView.getSelectionModel().getSelectedIndex();
+        });
+
     }
      
 
@@ -324,4 +335,18 @@ public class AppController implements Initializable {
         this.updateDataInGUI();
         this.loadInlineTextArea.setText("");
     }*/
+
+    public void setInstruction(Instruction inst) {
+        this.simulator.setInstMemPosition(inst.getAddress(), inst.getHexWord());
+        this.updateDataInGUI();
+    }
+    
+    @FXML
+    private void handleEditButton(ActionEvent event) {
+        /*System.out.println(selectedPos);
+        if(selectedPos >= 0) {
+            Instruction selectedInst = this.simulator.getInstMem().get(selectedPos);
+            this.instManagerController.setCurrentInst(selectedInst);
+        }*/
+    }
 }

@@ -62,7 +62,7 @@ public class TinyCPUSimulator {
         int memAddress = this.getMemAddress(currInst);
         
         if(currInst.getOpcode().equals("LDR")) {  //LDR    
-            if(currInst.getMode().equals("01")) {  //immediate mode
+            if(currInst.getMode().equals("IMM")) {  //immediate mode
                 targetReg.setContent(currInst.getMemAddress());
             }
             else {
@@ -74,7 +74,7 @@ public class TinyCPUSimulator {
         }
         else if(currInst.getOpcode().equals("ADD")) {  //ADD
             Integer operand;
-            if(currInst.getMode().equals("01")) {  //immediate mode
+            if(currInst.getMode().equals("IMM")) {  //immediate mode
                 operand = currInst.getMemAddress();
             }
             else {
@@ -84,7 +84,7 @@ public class TinyCPUSimulator {
         }
         else if(currInst.getOpcode().equals("SUB")) {  //STR
             Integer operand;
-            if(currInst.getMode().equals("01")) {  //immediate mode
+            if(currInst.getMode().equals("IMM")) {  //immediate mode
                 operand = currInst.getMemAddress();
             }
             else {
@@ -115,7 +115,7 @@ public class TinyCPUSimulator {
     }
     
     private int getMemAddress(Instruction inst) {
-        if(inst.getMode().equals("00")) { //direct mode
+        if(inst.getMode().equals("DIR")) { //direct mode
             return inst.getMemAddress();
         }
         else { //indexing mode

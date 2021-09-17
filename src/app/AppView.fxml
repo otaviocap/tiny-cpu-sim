@@ -20,7 +20,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="529.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
   <children>
-    <TableView fx:id="instMemTableView" editable="true" layoutX="14.0" layoutY="42.0" prefHeight="434.0" prefWidth="323.0">
+    <TableView fx:id="instMemTableView" editable="true" layoutX="6.0" layoutY="42.0" prefHeight="434.0" prefWidth="331.0">
       <columns>
         <TableColumn fx:id="pcInstTableColumn" editable="false" prefWidth="38.0" sortable="false" text="PC" />
         <TableColumn fx:id="addressInstTableColumn" editable="false" prefWidth="67.0" sortable="false" text="Add." />
@@ -72,5 +72,6 @@
     <Separator layoutX="539.0" layoutY="21.0" orientation="VERTICAL" prefHeight="484.0" prefWidth="5.0" />
     <Button id="resetButton" fx:id="clearButton" layoutX="14.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear" />
     <Button id="clearButton" fx:id="resetButton" layoutX="551.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" />
+      <Button fx:id="editInstButton" layoutX="295.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleEditButton" text="Edit" />
   </children>
 </AnchorPane>

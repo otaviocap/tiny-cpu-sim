@@ -13,9 +13,8 @@ public class InstructionMemory {
     public InstructionMemory() {
         this.memList = FXCollections.observableArrayList();
         for (int addCount = 0; addCount < INST_MEM_SIZE; addCount++) {
-            Instruction inst = new Instruction(0, addCount);
+            Instruction inst = new Instruction(addCount);
             this.memList.add(inst);
-            inst.setAssigned(false);
         }
     }
     
@@ -25,14 +24,14 @@ public class InstructionMemory {
         
         int addCount = 0;
         while(fileScan.hasNext() && addCount < INST_MEM_SIZE) {
-            Instruction inst = new Instruction(Integer.parseInt(fileScan.nextLine(), 16), addCount);
+            Instruction inst = new Instruction(addCount, Integer.parseInt(fileScan.nextLine(), 16));
             this.memList.add(inst);
             inst.setAssigned(true);
             addCount += 1;
         }
         
         while(addCount < INST_MEM_SIZE) {
-            Instruction inst = new Instruction(0, addCount);
+            Instruction inst = new Instruction(addCount);
             this.memList.add(inst);
             inst.setAssigned(false);
             addCount += 1;
@@ -67,9 +66,8 @@ public class InstructionMemory {
         return this.memList;
     }   
 
-    void setInst(int address, String wordStr) {
-        Instruction inst = this.memList.get(address);
-        inst.setHexWord(wordStr);
+    void setInst(int address, String hexWord) {
+        this.memList.set(address, new Instruction(address, hexWord));
         this.checkForHLT();
     }
 
@@ -91,7 +89,7 @@ public class InstructionMemory {
     private void checkForHLT() {
         boolean hltFound = false;
         for(Instruction inst : this.memList) {
-            if(inst.getOpcode().equals("HLT")) {
+            if(inst.isHLT()) {
                 hltFound = true;
                 continue;
             }

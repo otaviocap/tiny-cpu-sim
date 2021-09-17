@@ -45,7 +45,7 @@ public class AppController implements Initializable {
     @FXML
     private TableView<Instruction> instMemTableView;
     @FXML
-    private TableColumn<Instruction, Integer> pcInstTableColumn;
+    private TableColumn<Instruction, Integer> edInstTableColumn;
     @FXML
     private TableColumn<Instruction, Integer> addressInstTableColumn;
     @FXML
@@ -150,7 +150,7 @@ public class AppController implements Initializable {
     
     private void initInstMemTableView() {
         this.addressInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        this.pcInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("pcIsHere"));
+        this.edInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("isBeingEdited"));
         this.assemblyTableColumn.setCellValueFactory(new PropertyValueFactory<>("assembly"));
         this.wordInstTableColumn.setCellValueFactory(new PropertyValueFactory<>("hexWord"));
         
@@ -200,6 +200,9 @@ public class AppController implements Initializable {
         this.instMemTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if(newSelection != null) {
                 this.instManagerController.setCurrentInst(newSelection);
+                this.simulator.updateCurrEditedInst(newSelection);
+                
+                this.updateDataInGUI();
             }
             //selectedPos = this.instMemTableView.getSelectionModel().getSelectedIndex();
         });

@@ -56,23 +56,23 @@
       <Circle fx:id="c5" fill="#9e9e9e" layoutX="213.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="c6" fill="#9e9e9e" layoutX="193.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="c7" fill="#9e9e9e" layoutX="174.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="15.0" layoutY="83.0" text="BINARY CODE">
+      <Label layoutX="15.0" layoutY="74.0" text="BINARY CODE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="94.0" layoutY="141.0" text="HEX CODE">
+      <Label layoutX="335.0" layoutY="74.0" text="HEX CODE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="hexCodeTextField" editable="false" layoutX="94.0" layoutY="159.0" prefHeight="29.0" prefWidth="97.0" />
-      <Label layoutX="204.0" layoutY="141.0" text="ASSEMBLY">
+      <TextField fx:id="hexCodeTextField" editable="false" layoutX="335.0" layoutY="96.0" prefHeight="29.0" prefWidth="97.0" />
+      <Label layoutX="108.0" layoutY="141.0" text="ASSEMBLY">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="assemblyTextField" editable="false" layoutX="202.0" layoutY="159.0" prefHeight="29.0" prefWidth="177.0" />
+      <TextField fx:id="assemblyTextField" editable="false" layoutX="105.0" layoutY="159.0" prefHeight="29.0" prefWidth="177.0" />
       <Button layoutX="388.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleAddButton" text="Update" />
       <TextField fx:id="addressTextField" editable="false" layoutX="12.0" layoutY="159.0" prefHeight="29.0" prefWidth="68.0" />
       <Label layoutX="14.0" layoutY="141.0" text="ADDRESS" textFill="RED">

@@ -22,7 +22,7 @@
   <children>
     <TableView fx:id="instMemTableView" editable="true" layoutX="6.0" layoutY="42.0" prefHeight="434.0" prefWidth="331.0">
       <columns>
-        <TableColumn fx:id="pcInstTableColumn" editable="false" prefWidth="38.0" sortable="false" text="PC" />
+        <TableColumn fx:id="edInstTableColumn" editable="false" prefWidth="38.0" sortable="false" text="Ed." />
         <TableColumn fx:id="addressInstTableColumn" editable="false" prefWidth="67.0" sortable="false" text="Add." />
         <TableColumn fx:id="wordInstTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" sortable="false" text="Word (HEX)" />
         <TableColumn fx:id="assemblyTableColumn" editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" sortable="false" text="Instruction" />

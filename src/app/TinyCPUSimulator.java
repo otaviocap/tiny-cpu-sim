@@ -231,5 +231,19 @@ public class TinyCPUSimulator {
         return returnable;
     }
 
+    void updateCurrEditedInst(Instruction newSelection) {
+        if(newSelection != null) {
+            int newAddress = newSelection.getAddress();
+            this.instMem.getMemList().forEach(instruction -> {
+                if(instruction.getAddress() == newAddress) {
+                    instruction.setIsBeingEdited(true);
+                }
+                else {
+                    instruction.setIsBeingEdited(false);
+                }
+            });
+        }
+    }
+
     
 }

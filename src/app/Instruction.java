@@ -5,13 +5,14 @@ import java.util.TreeMap;
 
 public class Instruction {
     private Integer decWord;
-    private Boolean pcIsHere;
     private Integer address;
     private String hexWord;
     private String binWord;
     private String assembly;
     
     private boolean assigned;
+    private Boolean pcIsHere;
+    private Boolean isBeingEdited;
     
     private static Map<String,String> opcodeToMnemonic;
     private static Map<String,String> regToMnemonic;
@@ -25,6 +26,7 @@ public class Instruction {
 
     public Instruction(Integer address) {
         this.pcIsHere = (address == 0);
+        this.isBeingEdited = (address == 0);
         this.initTranslationTables();
         this.address = address;
         this.assigned = false;
@@ -38,6 +40,7 @@ public class Instruction {
         this.binWord = inst.binWord;
         this.assembly = inst.assembly;
         this.assigned = inst.assigned;
+        this.isBeingEdited = inst.isBeingEdited;
     }
     
     public Instruction(Integer address, String hexWord) {
@@ -122,7 +125,7 @@ public class Instruction {
     }
 
     private String parseHexWord() {
-        return String.format("%04x", this.decWord);
+        return String.format("%04x", this.decWord).toUpperCase();
     }
     
     private String parseBinWord() {
@@ -257,7 +260,7 @@ public class Instruction {
     }
 
     public String getPcIsHere() {
-        return (this.pcIsHere) ? "*" : "";
+        return (this.pcIsHere) ? "⇒" : "";
     }
 
     public void setPcIsHere(Boolean pcIsHere) {
@@ -283,6 +286,14 @@ public class Instruction {
     public String toString() {
         return this.assembly;
     }  
+
+    public String getIsBeingEdited() {
+        return isBeingEdited ? "⇒" : "";
+    }
+
+    public void setIsBeingEdited(Boolean isBeingEdited) {
+        this.isBeingEdited = isBeingEdited;
+    }
 
     
 }

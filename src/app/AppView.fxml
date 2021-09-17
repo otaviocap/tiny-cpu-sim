@@ -33,7 +33,7 @@
         <Font name="System Bold" size="18.0" fx:id="x1" />
       </font>
     </Label>
-    <Button layoutX="6.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleMemoryLoad" text="Load Memory" />
+    <Button layoutX="6.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleLoadMemoryButton" text="Load Memory" />
     <TableView fx:id="dataMemTableView" editable="true" layoutX="347.0" layoutY="42.0" prefHeight="434.0" prefWidth="184.0">
       <columns>
         <TableColumn fx:id="addressDataTableColumn" editable="false" prefWidth="67.0" sortable="false" text="Add." />
@@ -71,6 +71,6 @@
     <Separator layoutX="539.0" layoutY="21.0" orientation="VERTICAL" prefHeight="484.0" prefWidth="5.0" />
     <Button id="resetButton" fx:id="clearButton" layoutX="426.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear Memory" />
     <Button id="clearButton" fx:id="resetButton" layoutX="551.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" />
-      <Button fx:id="editInstButton" layoutX="121.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleEditButton" text="Save Memory" />
+      <Button layoutX="121.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleSaveMemoryButton" text="Save Memory" />
   </children>
 </AnchorPane>

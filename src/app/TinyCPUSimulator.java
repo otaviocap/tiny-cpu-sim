@@ -224,5 +224,12 @@ public class TinyCPUSimulator {
         return ccN;
     }
 
+    String getSavedMemories() {
+        String returnable = "";
+        returnable += this.instMem.getSavedMem();
+        returnable += this.dataMem.getSavedMem();
+        return returnable;
+    }
+
     
 }

@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 import javafx.fxml.FXMLLoader;
@@ -103,7 +104,7 @@ public class AppController implements Initializable {
     }
     
     @FXML
-    public void handleMemoryLoad(ActionEvent event) {
+    public void handleLoadMemoryButton(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         
@@ -124,6 +125,27 @@ public class AppController implements Initializable {
             alert.setHeaderText("Erro ao abrir o arquivo!");
             alert.showAndWait();
         }
+    }
+    
+    @FXML
+    public void handleSaveMemoryButton(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        
+        File memFile = fileChooser.showSaveDialog(SimCPU.getScene().getWindow());
+        
+        try {
+            FileWriter writer = new FileWriter(memFile);
+            writer.write(this.simulator.getSavedMemories());
+            writer.close();
+        }
+        catch(IOException ioe) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erro!");
+            alert.setHeaderText("Erro ao salvar o arquivo!");
+            alert.showAndWait();
+        }
+        
     }
     
     private void initInstMemTableView() {

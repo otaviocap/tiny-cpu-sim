@@ -33,7 +33,6 @@ public class InstructionMemory {
         while(!line.equals("DATA") && addCount < INST_MEM_SIZE) {
             Instruction inst = new Instruction(addCount, Integer.parseInt(line, 16));
             this.memList.add(inst);
-            inst.setAssigned(true);
             addCount += 1;
             
             line = fileScan.nextLine();
@@ -42,7 +41,6 @@ public class InstructionMemory {
         while(addCount < INST_MEM_SIZE) {
             Instruction inst = new Instruction(addCount);
             this.memList.add(inst);
-            inst.setAssigned(false);
             addCount += 1;
         }
         
@@ -69,6 +67,16 @@ public class InstructionMemory {
             inst.setAssigned(false);
             addCount += 1;
         }
+    }
+    
+    public String getSavedMem() {
+        String returnable = "INST\n";
+        for (Instruction instruction : memList) {
+            if(instruction.getHexWord() != null) {
+                returnable += instruction.getHexWord() + "\n";
+            }
+        }
+        return returnable;
     }
 
     public ObservableList<Instruction> getMemList() {

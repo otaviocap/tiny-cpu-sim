@@ -38,6 +38,14 @@ class DataMemory {
         }
     }
 
+    public String getSavedMem() {
+        String returnable = "DATA\n";
+        for (MemData data : memList) {
+            returnable += data.getWord() + "\n";
+        }
+        return returnable;
+    }
+    
     public ObservableList<MemData> getMemList() {
         return FXCollections.observableArrayList(this.memList);
     }

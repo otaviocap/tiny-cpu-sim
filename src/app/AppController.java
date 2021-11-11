@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -33,6 +34,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -41,6 +43,8 @@ import javafx.stage.Stage;
 public class AppController implements Initializable {
     
     private TinyCPUSimulator simulator;
+    
+    public static boolean isInstManagerOpen = false;
     
     @FXML
     private TableView<Instruction> instMemTableView;
@@ -80,27 +84,7 @@ public class AppController implements Initializable {
         this.initTableViews();
         this.updateDataInGUI();       
         
-        try {
-        
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("InstManagerView.fxml"));
-            Parent root = loader.load();
-
-            instManagerController = loader.getController();
-            instManagerController.setAppController(this);
-            instManagerController.setCurrentInst(this.simulator.getInstMem().get(0));
-            
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show(); 
-            
-            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-            double y = bounds.getMinY() + (bounds.getHeight() - scene.getHeight()) * 0.1;
-            stage.setY(y);
-        }
-        catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
+        this.openInstManager();
     }
     
     @FXML
@@ -353,6 +337,39 @@ public class AppController implements Initializable {
         this.updateDataInGUI();
     }
     
+    private void openInstManager() {
+        try {
+        
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("InstManagerView.fxml"));
+            Parent root = loader.load();
+
+            instManagerController = loader.getController();
+            instManagerController.setAppController(this);
+            instManagerController.setCurrentInst(this.simulator.getInstMem().get(0));
+            
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show(); 
+            
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    isInstManagerOpen = false;
+                }
+            });
+            
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            double y = bounds.getMinY() + (bounds.getHeight() - scene.getHeight()) * 0.1;
+            stage.setY(y);
+            
+            isInstManagerOpen = true;
+        }
+        catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+    
     @FXML
     private void handleEditButton(ActionEvent event) {
         /*System.out.println(selectedPos);
@@ -360,5 +377,12 @@ public class AppController implements Initializable {
             Instruction selectedInst = this.simulator.getInstMem().get(selectedPos);
             this.instManagerController.setCurrentInst(selectedInst);
         }*/
+    }
+    
+    @FXML
+    private void handleOpenInstructionManagerButton(ActionEvent event) {
+        if(!isInstManagerOpen) {
+            this.openInstManager();
+        }
     }
 }

@@ -72,5 +72,6 @@
     <Button id="resetButton" fx:id="clearButton" layoutX="426.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear Memory" />
     <Button id="clearButton" fx:id="resetButton" layoutX="551.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" />
       <Button layoutX="121.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleSaveMemoryButton" text="Save Memory" />
+      <Button layoutX="265.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleOpenInstructionManagerButton" text="Open IM" />
   </children>
 </AnchorPane>

@@ -360,23 +360,14 @@ public class AppController implements Initializable {
             });
             
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-            double y = bounds.getMinY() + (bounds.getHeight() - scene.getHeight()) * 0.1;
-            stage.setY(y);
+            double x = bounds.getMinX() + (bounds.getWidth() - scene.getWidth()) * 0.1;
+            stage.setX(x);
             
             isInstManagerOpen = true;
         }
         catch(IOException ioe) {
             ioe.printStackTrace();
         }
-    }
-    
-    @FXML
-    private void handleEditButton(ActionEvent event) {
-        /*System.out.println(selectedPos);
-        if(selectedPos >= 0) {
-            Instruction selectedInst = this.simulator.getInstMem().get(selectedPos);
-            this.instManagerController.setCurrentInst(selectedInst);
-        }*/
     }
     
     @FXML

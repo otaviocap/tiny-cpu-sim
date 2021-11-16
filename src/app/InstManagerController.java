@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
@@ -25,6 +26,9 @@ public class InstManagerController implements Initializable {
     
     @FXML
     private Circle c15, c14, c13, c12, c11, c10, c9, c8, c7, c6, c5, c4, c3, c2, c1, c0;
+    
+    @FXML
+    private Button updateButton;
     
     private ArrayList<Circle> vecBinCircles;  
     
@@ -180,7 +184,6 @@ public class InstManagerController implements Initializable {
     
     @FXML
     public void handleAddButton(ActionEvent event) {
-        System.out.println(currInstruction);
         this.appController.setInstruction(currInstruction);
     }
 
@@ -225,10 +228,12 @@ public class InstManagerController implements Initializable {
             this.addressTextField.setText(currInstruction.getAddress().toString());
             this.hexCodeTextField.setText(currInstruction.getHexWord());
             this.assemblyTextField.setText(currInstruction.toString()); 
+            this.updateButton.setDisable(false);
         }
         else {
             this.hexCodeTextField.setText("");
             this.assemblyTextField.setText("");
+            this.updateButton.setDisable(true);
         }
     }
 }

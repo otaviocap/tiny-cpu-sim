@@ -42,7 +42,7 @@ import javafx.stage.WindowEvent;
  */
 public class AppController implements Initializable {
     
-    private TinyCPUSimulator simulator;
+    private SmallCPUSimulator simulator;
     
     public static boolean isInstManagerOpen = false;
     
@@ -80,7 +80,7 @@ public class AppController implements Initializable {
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.simulator = new TinyCPUSimulator();
+        this.simulator = new SmallCPUSimulator();
         this.initTableViews();
         this.updateDataInGUI();       
         
@@ -285,7 +285,7 @@ public class AppController implements Initializable {
     
     @FXML 
     private void handleClearButton(ActionEvent event) {
-        this.simulator = new TinyCPUSimulator();
+        this.simulator = new SmallCPUSimulator();
         this.initTableViews();
         this.updateDataInGUI();
     }

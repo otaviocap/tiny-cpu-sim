@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import javafx.collections.ObservableList;
 
-public class TinyCPUSimulator {
+public class SmallCPUSimulator {
     private final int TIMEOUT = 10000;
     
     private InstructionMemory instMem;
@@ -15,7 +15,7 @@ public class TinyCPUSimulator {
     
     private Boolean hltMode;
     
-    public TinyCPUSimulator() {
+    public SmallCPUSimulator() {
         this.instMem = new InstructionMemory();
         this.dataMem = new DataMemory();
         
@@ -44,7 +44,7 @@ public class TinyCPUSimulator {
     }
     
     public void runNextInstruction() throws UnrecognizedInstructionException {
-        if(this.hltMode || this.regPC.getContent() >= 15) {
+        if(this.hltMode || this.regPC.getContent() >= 255) {
             this.hltMode = true;
             return;
         }

@@ -71,12 +71,7 @@ public class AppController implements Initializable {
     private InstManagerController instManagerController;
     
     private int selectedPos = -1;
-    
-    
-    /*@FXML
-    private TextArea loadInlineTextArea;
-    */
-            
+                
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.simulator = new SmallCPUSimulator();
@@ -184,20 +179,17 @@ public class AppController implements Initializable {
             }
         });
         
-        this.instMemTableView.focusedProperty().addListener((ov, oldV, newV) -> {
-            if(!newV) {
-                instMemTableView.getSelectionModel().clearSelection();
-            }
-        });
-        
         this.instMemTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if(newSelection != null) {
                 this.instManagerController.setCurrentInst(newSelection);
                 this.simulator.updateCurrEditedInst(newSelection);
                 
                 this.updateDataInGUI();
+                selectedPos = newSelection.getAddress();
             }
-            //selectedPos = this.instMemTableView.getSelectionModel().getSelectedIndex();
+            else {
+                selectedPos = -1;
+            }
         });
 
     }
@@ -216,7 +208,6 @@ public class AppController implements Initializable {
                 int address = data.getAddress();
                 this.simulator.setDataMemPosition(address, t.getNewValue());
                 updateDataInGUI();
-                t.getTableView().getSelectionModel().clearSelection();
             })
         );
         
@@ -237,12 +228,6 @@ public class AppController implements Initializable {
                         setStyle("");
                     }
                 }
-            }
-        });
-        
-        this.instMemTableView.focusedProperty().addListener((ov, oldV, newV) -> {
-            if(!newV) {
-                instMemTableView.getSelectionModel().clearSelection();
             }
         });
         
@@ -332,15 +317,6 @@ public class AppController implements Initializable {
         
     }
 
-    /*@FXML
-    private void handleLoadInline(ActionEvent event) {
-        String inlineInstructions = this.loadInlineTextArea.getText();
-        this.simulator.parseInstMemFile(inlineInstructions);
-        this.initInstMemTableView();
-        this.updateDataInGUI();
-        this.loadInlineTextArea.setText("");
-    }*/
-
     public void setInstruction(Instruction inst) {
         this.simulator.setInstMemPosition(inst.getAddress(), inst.getHexWord());
         this.updateDataInGUI();
@@ -403,11 +379,28 @@ public class AppController implements Initializable {
     }
     
     @FXML void handleMoveUpButton(ActionEvent event) {
-        //TODO
+        int tmpSelectedPos = selectedPos;
+        if(selectedPos != -1 && selectedPos > 0) {
+            Instruction selectedInst = this.simulator.getInstMem().get(selectedPos);
+            if(selectedInst.isAssigned() && !selectedInst.getOpcode().equals("HLT")) {
+                this.simulator.changeInstPostions(selectedPos, selectedPos-1);
+                this.updateDataInGUI();
+                this.instMemTableView.getSelectionModel().select(tmpSelectedPos-1);
+            }
+        }
     }
     
     @FXML void handleMoveDownButton(ActionEvent event) {
-        //TODO
+        int tmpSelectedPos = selectedPos;
+        if(selectedPos != -1 && selectedPos < 255) {
+            Instruction selectedInst = this.simulator.getInstMem().get(selectedPos);
+            Instruction postSelectedInst = this.simulator.getInstMem().get(selectedPos+1);
+            if(selectedInst.isAssigned() && !selectedInst.getOpcode().equals("HLT") && !postSelectedInst.getOpcode().equals("HLT")) {
+                this.simulator.changeInstPostions(selectedPos, selectedPos+1);
+                this.updateDataInGUI();
+                this.instMemTableView.getSelectionModel().select(tmpSelectedPos+1);
+            }
+        }
     }
 
 }

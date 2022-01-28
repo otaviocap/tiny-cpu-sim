@@ -231,7 +231,7 @@ public class SmallCPUSimulator {
         return returnable;
     }
 
-    void updateCurrEditedInst(Instruction newSelection) {
+    public void updateCurrEditedInst(Instruction newSelection) {
         if(newSelection != null) {
             int newAddress = newSelection.getAddress();
             this.instMem.getMemList().forEach(instruction -> {
@@ -243,6 +243,14 @@ public class SmallCPUSimulator {
                 }
             });
         }
+    }
+    
+    public void changeInstPostions(int address1, int address2) {
+        Instruction temporary1 = this.instMem.read(address1);
+        Instruction temporary2 = this.instMem.read(address2);
+        this.instMem.setInst(address2, temporary1.getHexWord());
+        this.instMem.setInst(address1, temporary2.getHexWord());
+        
     }
 
     

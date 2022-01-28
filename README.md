@@ -16,4 +16,4 @@ SmallCPU-Sim is an JavaFX-based open-source project for an instruction-level sim
 
 ### RTL-Level Schematic
 
-TO BE DOING
+![SmallCPU RTL-level block diagram] (https://user-images.githubusercontent.com/27533879/151595348-9dbd5bc9-4ce2-44da-98b2-ff6834ef27e8.png)

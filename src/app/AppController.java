@@ -395,10 +395,12 @@ public class AppController implements Initializable {
         if(selectedPos != -1 && selectedPos < 255) {
             Instruction selectedInst = this.simulator.getInstMem().get(selectedPos);
             Instruction postSelectedInst = this.simulator.getInstMem().get(selectedPos+1);
-            if(selectedInst.isAssigned() && !selectedInst.getOpcode().equals("HLT") && !postSelectedInst.getOpcode().equals("HLT")) {
-                this.simulator.changeInstPostions(selectedPos, selectedPos+1);
-                this.updateDataInGUI();
-                this.instMemTableView.getSelectionModel().select(tmpSelectedPos+1);
+            if(postSelectedInst.isAssigned()) {
+                if(selectedInst.isAssigned() && !selectedInst.getOpcode().equals("HLT") && !postSelectedInst.getOpcode().equals("HLT")) {
+                    this.simulator.changeInstPostions(selectedPos, selectedPos+1);
+                    this.updateDataInGUI();
+                    this.instMemTableView.getSelectionModel().select(tmpSelectedPos+1);
+                }
             }
         }
     }

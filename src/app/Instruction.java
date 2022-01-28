@@ -272,6 +272,9 @@ public class Instruction {
     }
 
     public String getHexWord() {
+        if(hexWord != null) {
+            return hexWord.toUpperCase();
+        }
         return hexWord;
     }
 

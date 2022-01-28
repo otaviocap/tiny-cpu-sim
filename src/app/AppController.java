@@ -23,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableRow;
@@ -376,4 +377,21 @@ public class AppController implements Initializable {
             this.openInstManager();
         }
     }
+
+    @FXML
+    public void handleAboutButton(ActionEvent event) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("About SmallSPU!");
+        alert.setHeaderText("SmallCPUSim v2.0");
+        alert.setContentText("SmallCPU-Sim is an JavaFX-based open-source project for an instruction-level "
+                + "simulator for the teaching-purpose Central Processing Unit SmallCPU.\n\n"
+                + "Developed by Felipe Martin Sampaio.");
+        
+        alert.setResizable(true);
+        alert.getDialogPane().setPrefSize(480, 240);
+        
+        alert.setWidth(300);
+        alert.showAndWait();
+    }
+
 }

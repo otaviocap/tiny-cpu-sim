@@ -183,8 +183,9 @@ public class InstManagerController implements Initializable {
     }
     
     @FXML
-    public void handleAddButton(ActionEvent event) {
+    public void handleUpdateButton(ActionEvent event) {
         this.appController.setInstruction(currInstruction);
+        this.appController.setNextSelectedInstruction(currInstruction.getAddress()+1);
     }
 
     public void setAppController(AppController aThis) {

@@ -403,4 +403,8 @@ public class AppController implements Initializable {
         }
     }
 
+    public void setNextSelectedInstruction(int nextAddress) {
+        this.instMemTableView.getSelectionModel().select(nextAddress);
+    }
+
 }

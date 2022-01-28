@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app;
 
 import java.io.File;
@@ -23,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -31,16 +27,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-/**
- *
- * @author felipe
- */
 public class AppController implements Initializable {
     
     private SmallCPUSimulator simulator;
@@ -70,10 +64,14 @@ public class AppController implements Initializable {
     
     @FXML
     private Circle zCircle, nCircle;
+  
+    @FXML
+    private Button moveUpButton, moveDownButton;
     
     private InstManagerController instManagerController;
     
     private int selectedPos = -1;
+    
     
     /*@FXML
     private TextArea loadInlineTextArea;
@@ -86,6 +84,16 @@ public class AppController implements Initializable {
         this.updateDataInGUI();       
         
         this.openInstManager();
+        
+        ImageView moveUpIM = new ImageView(new Image(getClass().getResourceAsStream("/res/move-up.png")));
+        moveUpIM.setFitHeight(28);
+        moveUpIM.setFitWidth(28);
+        this.moveUpButton.setGraphic(moveUpIM);
+        
+        ImageView moveDownIM = new ImageView(new Image(getClass().getResourceAsStream("/res/move-down.png")));
+        moveDownIM.setFitHeight(28);
+        moveDownIM.setFitWidth(28);
+        this.moveDownButton.setGraphic(moveDownIM);
     }
     
     @FXML
@@ -392,6 +400,14 @@ public class AppController implements Initializable {
         
         alert.setWidth(300);
         alert.showAndWait();
+    }
+    
+    @FXML void handleMoveUpButton(ActionEvent event) {
+        //TODO
+    }
+    
+    @FXML void handleMoveDownButton(ActionEvent event) {
+        //TODO
     }
 
 }

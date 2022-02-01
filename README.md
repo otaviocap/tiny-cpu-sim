@@ -31,6 +31,13 @@ Adopted languagens and libraries:
 
 ### Instruction Set Architecture
 
+| Instruction | Adressing mode | Assembly |  Execution |
+| ----------- | -------- | ---------- | -- |
+| LDR (load register) | Direct | LDR _reg_ _mem_ | _reg_ ← DATA_MEM\[_mem_\] |
+| LDR (load register) | Immediate | LDR _reg_ #_value_ | _reg_ ← _value_ |
+| LDR (load register) | Indexed | LDR _reg_ _offset_,X | _reg_ ← DATA_MEM\[RX + _offset_\] |
+
+
 ### RTL-Level Schematic
 
 ![SmallCPU RTL-level block diagram](https://user-images.githubusercontent.com/27533879/151595348-9dbd5bc9-4ce2-44da-98b2-ff6834ef27e8.png)

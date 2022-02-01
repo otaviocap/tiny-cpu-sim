@@ -4,15 +4,15 @@
 
 SmallCPU-Sim is an JavaFX-based open-source project for an instruction-level simulator for the teaching-purpose central processing unit SmallCPU.
 
-Main functionalities:
+![Screenshot of SmallCPU simulator graphical user interface](https://user-images.githubusercontent.com/27533879/152024108-aefc9f88-48ad-4471-a4c9-a169722a66b9.png)
 
+### Main functionalities:
 - Graphical simulation environment
 - Instruction manager interface
 - Step-by-step simulation interface
 - Load and save memories states from/to files
 
-Adopted languagens and libraries:
-
+### Adopted languagens and libraries:
 - `Java 8`
 - `JavaFX`
 - `Netbeans project`

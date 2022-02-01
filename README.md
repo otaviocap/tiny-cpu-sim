@@ -33,9 +33,20 @@ Adopted languagens and libraries:
 
 | Instruction | Adressing mode | Assembly |  Execution |
 | ----------- | -------- | ---------- | -- |
-| LDR (load register) | Direct | LDR _reg_ _mem_ | _reg_ ← DATA_MEM\[_mem_\] |
-| LDR (load register) | Immediate | LDR _reg_ #_value_ | _reg_ ← _value_ |
-| LDR (load register) | Indexed | LDR _reg_ _offset_,X | _reg_ ← DATA_MEM\[RX + _offset_\] |
+| **LDR** (load register) | Direct | LDR _reg_ _mem_ | _reg_ ← DATA_MEM\[_mem_\] |
+| **LDR** (load register) | Immediate | LDR _reg_ #_value_ | _reg_ ← _value_ |
+| **LDR** (load register) | Indexed | LDR _reg_ _offset_,X | _reg_ ← DATA_MEM\[RX + _offset_\] |
+| **STR** (store register) | Direct | STR _reg_ _mem_ | DATA_MEM\[_mem_\] ← _reg_ |
+| **STR** (store register) | Indexed | STR _reg_ _offset_,X | DATA_MEM\[RX+_offset_\] ← _reg_ |
+| **ADD** (arithmetic add) | Direct | ADD _reg_ _mem_ | _reg_ ← _reg_ + DATA_MEM\[_mem_\] |
+| **ADD** (arithmetic add) | Immediate | ADD _reg_ #_value_ | _reg_ ← _reg_ + _value_ |
+| **ADD** (arithmetic add) | Indexed | ADD _reg_ _offset_,X | _reg_ ← _reg_ + DATA_MEM\[RX + _offset_\] |
+| **SUB** (arithmetic subtraction) | Direct | SUB _reg_ _mem_ | _reg_ ← _reg_ - DATA_MEM\[_mem_\] |
+| **SUB** (arithmetic subtraction) | Immediate | SUB _reg_ #_value_ | _reg_ ← _reg_ - _value_ |
+| **SUB** (arithmetic subtraction) | Indexed | SUB _reg_ _offset_,X | _reg_ ← _reg_ - DATA_MEM\[RX + _offset_\] |
+| **JMP** (unconditional jump) | Direct | JMP _mem_ | PC ← _mem_ |
+| **JC** (conditional jump) | Direct | JC _cc_ _mem_ | (PC ← _mem_) if (_cc_ = Z and Z = 1) or (_cc_ = N and N = 1) |
+| **HLT** (halt) | | HLT | _suspend execution_ |
 
 
 ### RTL-Level Schematic

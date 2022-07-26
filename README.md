@@ -15,7 +15,6 @@ SmallCPU-Sim is an JavaFX-based open-source project for an instruction-level sim
 ### Adopted languagens and libraries:
 - `Java 8`
 - `JavaFX`
-- `Netbeans project`
 
 ## SmallCPU - A teaching-purpose central processing unit
 

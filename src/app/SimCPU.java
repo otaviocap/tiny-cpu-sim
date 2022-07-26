@@ -47,6 +47,8 @@ public class SimCPU extends Application {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         double x = bounds.getMinX() + (bounds.getWidth() - scene.getWidth()) * 0.7;
         stage.setX(x);
+        stage.setResizable(false);
+
     }  
     
     public static Scene getScene() {

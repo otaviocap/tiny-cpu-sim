@@ -351,6 +351,8 @@ public class AppController implements Initializable {
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
             double x = bounds.getMinX() + (bounds.getWidth() - scene.getWidth()) * 0.1;
             stage.setX(x);
+
+            stage.setResizable(false);
             
             isInstManagerOpen = true;
         }

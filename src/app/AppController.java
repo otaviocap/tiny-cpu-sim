@@ -121,8 +121,12 @@ public class AppController implements Initializable {
         fileChooser.setTitle("Open Resource File");
         
         File memFile = fileChooser.showSaveDialog(SimCPU.getScene().getWindow());
-        
+
         try {
+            String fname = memFile.getAbsolutePath();
+            if(!fname.endsWith(".mem") ) {
+                memFile = new File(fname + ".mem");
+            }
             FileWriter writer = new FileWriter(memFile);
             writer.write(this.simulator.getSavedMemories());
             writer.close();

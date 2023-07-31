@@ -19,7 +19,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableRow;
@@ -37,7 +36,7 @@ import javafx.stage.WindowEvent;
 
 public class AppController implements Initializable {
     
-    private SmallCPUSimulator simulator;
+    private TinyCPUSimulator simulator;
     
     public static boolean isInstManagerOpen = false;
     
@@ -60,7 +59,7 @@ public class AppController implements Initializable {
     private TableColumn<MemData, String> wordDataTableColumn;
     
     @FXML
-    private TextField raTextField, rbTextField, rcTextField, rxTextField, pcTextField, riTextField;
+    private TextField raTextField, rbTextField, pcTextField, riTextField;
     
     @FXML
     private Circle zCircle, nCircle;
@@ -74,7 +73,7 @@ public class AppController implements Initializable {
                 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.simulator = new SmallCPUSimulator();
+        this.simulator = new TinyCPUSimulator();
         this.initTableViews();
         this.updateDataInGUI();       
         
@@ -283,7 +282,7 @@ public class AppController implements Initializable {
     
     @FXML 
     private void handleClearButton(ActionEvent event) {
-        this.simulator = new SmallCPUSimulator();
+        this.simulator = new TinyCPUSimulator();
         this.initTableViews();
         this.updateDataInGUI();
     }
@@ -299,8 +298,6 @@ public class AppController implements Initializable {
         
         this.raTextField.setText(this.simulator.getRegA().getContent().toString());
         this.rbTextField.setText(this.simulator.getRegB().getContent().toString());
-        this.rcTextField.setText(this.simulator.getRegC().getContent().toString());
-        this.rxTextField.setText(this.simulator.getRegX().getContent().toString());
         
         this.pcTextField.setText(this.simulator.getPC().getContent().toString());
         this.riTextField.setText(this.simulator.getRI().getHexContent());   
@@ -371,10 +368,10 @@ public class AppController implements Initializable {
     @FXML
     public void handleAboutButton(ActionEvent event) {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("About SmallSPU!");
-        alert.setHeaderText("SmallCPUSim v2.0");
-        alert.setContentText("SmallCPU-Sim is an JavaFX-based open-source project for an instruction-level "
-                + "simulator for the teaching-purpose Central Processing Unit SmallCPU.\n\n"
+        alert.setTitle("About TinySPU!");
+        alert.setHeaderText("TinyCPUSim v1.0");
+        alert.setContentText("TinyCPU-Sim is an JavaFX-based open-source project for an instruction-level "
+                + "simulator for the teaching-purpose Central Processing Unit TinyCPU.\n\n"
                 + "Developed by Felipe Martin Sampaio.");
         
         alert.setResizable(true);

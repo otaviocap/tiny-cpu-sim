@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 class DataMemory {
     private ObservableList<MemData> memList;
-    private final int DATA_MEM_SIZE = 256;
+    private final int DATA_MEM_SIZE = 16;
 
     public DataMemory() {
         memList = FXCollections.observableArrayList();

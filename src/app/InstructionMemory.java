@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 
 public class InstructionMemory {
     private ObservableList<Instruction> memList;
-    private final int INST_MEM_SIZE = 256;
+    private final int INST_MEM_SIZE = 16;
     
     public InstructionMemory() {
         this.memList = FXCollections.observableArrayList();

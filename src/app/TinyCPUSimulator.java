@@ -4,27 +4,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import javafx.collections.ObservableList;
 
-public class SmallCPUSimulator {
+public class TinyCPUSimulator {
     private final int TIMEOUT = 10000;
     
     private InstructionMemory instMem;
     private DataMemory dataMem;
     
-    private Register regA, regB, regC, regX, regPC, regRI;
+    private Register regA, regB, regPC, regRI;
     private Boolean ccZ, ccN;   
     
     private Boolean hltMode;
     
-    public SmallCPUSimulator() {
+    public TinyCPUSimulator() {
         this.instMem = new InstructionMemory();
         this.dataMem = new DataMemory();
         
         this.regA = new Register(0, 8);
         this.regB = new Register(0, 8);
-        this.regC = new Register(0, 8);
-        this.regX = new Register(0, 8);
         this.regPC = new Register(0, 8);
-        this.regRI = new Register(0, 16);
+        this.regRI = new Register(0, 8);
         
         this.ccZ = false;
         this.ccN = false;
@@ -59,37 +57,21 @@ public class SmallCPUSimulator {
             targetReg = this.getTargetRegister(currInst);
         }
         
-        int memAddress = this.getMemAddress(currInst);
+        int memAddress = currInst.getMemAddress();
         
         if(currInst.getOpcode().equals("LDR")) {  //LDR    
-            if(currInst.getMode().equals("IMM")) {  //immediate mode
-                targetReg.setContent(currInst.getMemAddress());
-            }
-            else {
-                targetReg.setContent(this.dataMem.read(memAddress));
-            }
+            targetReg.setContent(this.dataMem.read(memAddress));
+
         }
         else if(currInst.getOpcode().equals("STR")) {  //STR
             this.dataMem.write(memAddress, targetReg.getContent());
         }
         else if(currInst.getOpcode().equals("ADD")) {  //ADD
-            Integer operand;
-            if(currInst.getMode().equals("IMM")) {  //immediate mode
-                operand = currInst.getMemAddress();
-            }
-            else {
-                operand = this.dataMem.read(memAddress);
-            }
+            Integer operand = this.dataMem.read(memAddress);
             targetReg.add(operand);
         }
         else if(currInst.getOpcode().equals("SUB")) {  //STR
-            Integer operand;
-            if(currInst.getMode().equals("IMM")) {  //immediate mode
-                operand = currInst.getMemAddress();
-            }
-            else {
-                operand = this.dataMem.read(memAddress);
-            }
+            Integer operand = this.dataMem.read(memAddress);
             targetReg.sub(operand);
         }
         else if(currInst.getOpcode().equals("JMP")) {  //JMP
@@ -113,15 +95,7 @@ public class SmallCPUSimulator {
         
         this.instMem.updatePC(this.regPC.getContent());
     }
-    
-    private int getMemAddress(Instruction inst) {
-        if(inst.getMode().equals("DIR")) { //direct mode
-            return inst.getMemAddress();
-        }
-        else { //indexing mode
-            return inst.getMemAddress() + this.regX.getContent();
-        }
-    }
+
     
     private Register getTargetRegister(Instruction inst) {
         if(inst.getReg().equals("RA")) {
@@ -129,12 +103,6 @@ public class SmallCPUSimulator {
         }
         else if(inst.getReg().equals("RB")) {
             return this.regB;
-        }
-        else if(inst.getReg().equals("RC")) {
-            return this.regC;
-        }
-        else if(inst.getReg().equals("RX")) {
-            return this.regX;
         }
         else {
             return null;
@@ -146,8 +114,6 @@ public class SmallCPUSimulator {
         this.ccZ = false;
         this.regA.setContent(0);
         this.regB.setContent(0);
-        this.regC.setContent(0);
-        this.regX.setContent(0);
         this.regPC.setContent(0);
         this.regRI.setContent(0);
         this.instMem.updatePC(this.regPC.getContent());
@@ -193,14 +159,6 @@ public class SmallCPUSimulator {
 
     public Register getRegB() {
         return regB;
-    }
-
-    public Register getRegC() {
-        return regC;
-    }
-
-    public Register getRegX() {
-        return regX;
     }
 
     public Register getPC() {

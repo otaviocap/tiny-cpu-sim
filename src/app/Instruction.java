@@ -17,12 +17,10 @@ public class Instruction {
     private static Map<String,String> opcodeToMnemonic;
     private static Map<String,String> regToMnemonic;
     private static Map<String,String> ccToMnemonic;
-    private static Map<String,String> modeToMnemonic;
     
     private static Map<String,String> opcodeToBin;
     private static Map<String,String> regToBin;
     private static Map<String,String> ccToBin;
-    private static Map<String,String> modeToBin;
 
     public Instruction(Integer address) {
         this.pcIsHere = (address == 0);
@@ -62,37 +60,40 @@ public class Instruction {
         this.assembly = this.parseAssembly();
     }
     
-    public Instruction(Integer address, String inst, String reg, String cc, String mode, String mem) throws IllegalInstructionException {
+    public Instruction(Integer address, String inst, String reg, String cc, String mem) throws IllegalInstructionException {
         this(address);
         
         String binContent;        
-        if(this.isValidInstruction(inst, reg, cc, mode, mem)) {
+        if(this.isValidInstruction(inst, reg, cc, mem)) {
             binContent = (inst == null || "".equals(inst)) ? "000" : this.opcodeToBin.get(inst);
-            binContent += (reg == null || "".equals(reg)) ? "00" : this.regToBin.get(reg);
-            binContent += (cc == null || "".equals(cc)) ? "0" : this.ccToBin.get(cc);
-            binContent += (mode == null || "".equals(mode)) ? "00" : this.modeToBin.get(mode);
+            if(this.isRegInstruction()) {
+                binContent += (reg == null || "".equals(reg)) ? "0" : this.regToBin.get(reg);
+            }
+            else {
+                binContent += (cc == null || "".equals(cc)) ? "0" : this.ccToBin.get(cc);
+            }
 
             if("".equals(mem)) {
-                binContent +=  "00000000";
+                binContent +=  "0000";
             }
             else {
                 try {            
                     String binMem = Integer.toBinaryString(Integer.parseInt(mem));
 
-                    while(binMem.length() < 8) {
+                    while(binMem.length() < 4) {
                         binMem = "0" + binMem;
                     }
                     binContent += binMem;
                 }
                 catch(NumberFormatException nfe) {
-                    binContent += "00000000";
+                    binContent += "0000";
                 }
             }
 
             this.binWord = binContent;
             this.assigned = true;
             this.decWord = Integer.parseInt(binWord, 2);
-            this.hexWord = String.format("%04x", this.decWord);
+            this.hexWord = String.format("%02x", this.decWord);
             this.assembly = this.parseAssembly();
         }
         else {
@@ -101,7 +102,7 @@ public class Instruction {
         
     }
     
-    private boolean isValidInstruction(String inst, String reg, String cc, String mode, String mem) {       
+    private boolean isValidInstruction(String inst, String reg, String cc, String mem) {
         boolean isRegInst = (inst.equals("LDR") || inst.equals("STR") || inst.equals("ADD") || inst.equals("SUB"));
         boolean isJC = inst.equals("JC");
         boolean isJMP = inst.equals("JMP");
@@ -109,10 +110,9 @@ public class Instruction {
 
         boolean hasReg = !reg.equals("");
         boolean hasCC = !cc.equals("");
-        boolean hasMode = !mode.equals("");
         boolean hasMem = !mem.equals("");
 
-        return (((isRegInst && hasReg && hasMode) || (isJC && hasCC) || (isJMP)) && hasMem) || isHLT; 
+        return (((isRegInst && hasReg) || (isJC && hasCC) || (isJMP)) && hasMem) || isHLT;
     }
 
     public boolean isAssigned() {
@@ -130,7 +130,7 @@ public class Instruction {
     
     private String parseBinWord() {
         String bin = Integer.toBinaryString(this.decWord);
-        while(bin.length() < 16) {
+        while(bin.length() < 8) {
             bin = "0" + bin;
         }
         return bin;        
@@ -147,20 +147,13 @@ public class Instruction {
         opcodeToMnemonic.put("111", "HLT");
         
         regToMnemonic = new TreeMap<String,String>();
-        regToMnemonic.put("00", "RA");
-        regToMnemonic.put("01", "RB");
-        regToMnemonic.put("10", "RC");
-        regToMnemonic.put("11", "RX");
+        regToMnemonic.put("0", "RA");
+        regToMnemonic.put("1", "RB");
         
         ccToMnemonic = new TreeMap<String,String>();
         ccToMnemonic.put("0", "Z");
         ccToMnemonic.put("1", "N");
-        
-        modeToMnemonic = new TreeMap();
-        modeToMnemonic.put("00", "DIR");
-        modeToMnemonic.put("01", "IMM");
-        modeToMnemonic.put("10", "IDX");
-        
+
         opcodeToBin = new TreeMap();
         opcodeToBin.put("LDR", "000");
         opcodeToBin.put("STR", "001");
@@ -171,19 +164,12 @@ public class Instruction {
         opcodeToBin.put("HLT", "111");
 
         regToBin = new TreeMap();
-        regToBin.put("RA", "00");
-        regToBin.put("RB", "01");
-        regToBin.put("RC", "10");
-        regToBin.put("RX", "11");
+        regToBin.put("RA", "0");
+        regToBin.put("RB", "1");
 
         ccToBin = new TreeMap();
         ccToBin.put("Z", "0");
         ccToBin.put("N", "1");
-        
-        modeToBin = new TreeMap();
-        modeToBin.put("DIR", "00");
-        modeToBin.put("IMM", "01");
-        modeToBin.put("IDX", "10");
     }
     
     public String getOpcode() {
@@ -191,19 +177,15 @@ public class Instruction {
     }
     
     public String getReg() {
-        return regToMnemonic.get(this.binWord.substring(3, 5));
+        return regToMnemonic.get(this.binWord.substring(3, 4));
     }
     
     public String getCC() {
-        return ccToMnemonic.get(this.binWord.substring(5, 6));
+        return ccToMnemonic.get(this.binWord.substring(3, 4));
     }
-    
-    public String getMode() {
-        return modeToMnemonic.get(this.binWord.substring(6, 8));
-    }
-    
+
     public Integer getMemAddress() {
-        return Integer.parseInt(this.binWord.substring(8,16), 2);
+        return Integer.parseInt(this.binWord.substring(4,8), 2);
     }
     
     private String parseAssembly() {
@@ -217,15 +199,7 @@ public class Instruction {
                 returnable += this.getReg() + " ";
             }
             if(!this.getOpcode().equals("HLT")) {
-                if(this.getMode().equals("DIR")) {
-                    returnable += this.getMemAddress();
-                }
-                else if(this.getMode().equals("IMM")) {
-                    returnable += "#" + this.getMemAddress();
-                }
-                else {
-                    returnable += this.getMemAddress() + ",X";
-                }
+                returnable += this.getMemAddress();
             }
         }
         return returnable;

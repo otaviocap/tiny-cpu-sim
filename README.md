@@ -5,7 +5,7 @@
 TinyCPU-Sim is an JavaFX-based open-source project for an instruction-level simulator for the teaching-purpose central processing unit Tiny CPU.
 
 TODO update screenshot
-![Screenshot of SmallCPU simulator graphical user interface](https://user-images.githubusercontent.com/27533879/152024108-aefc9f88-48ad-4471-a4c9-a169722a66b9.png)
+![Screenshot - TinyCPU-Sim](https://github.com/fmsampaio/tiny-cpu-sim/assets/27533879/7c599e9f-26e4-4bd3-8cad-331512c2927c)
 
 ### Main functionalities:
 - Graphical simulation environment

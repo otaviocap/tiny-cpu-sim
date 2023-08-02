@@ -129,7 +129,7 @@ public class InstManagerController implements Initializable {
         String regSelection = (String) this.regComboBox.getValue();
         String ccSelection = (String) this.ccComboBox.getValue();
         String memText = this.memTextField.getText();
-        
+
         try {
             Instruction tmp = new Instruction(currInstruction.getAddress(), instSelection, regSelection, ccSelection, memText);
             this.currInstruction = tmp;

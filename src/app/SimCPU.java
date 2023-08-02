@@ -32,7 +32,7 @@ public class SimCPU extends Application {
                 public void handle(WindowEvent event) {
                     Alert alert = new Alert(AlertType.CONFIRMATION);
                     alert.setTitle("Confirmation");
-                    alert.setHeaderText("Are you sure you want to close SmallCPU-Sim?");
+                    alert.setHeaderText("Are you sure you want to close TinyCPU-Sim?");
                     //alert.setContentText("Are you sure you want to close SmallCPU-Sim?");
 
                     Optional<ButtonType> result = alert.showAndWait();

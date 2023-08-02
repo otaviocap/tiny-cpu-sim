@@ -7,9 +7,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
   <children>
-    <TableView fx:id="instMemTableView" editable="true" layoutX="15.0" layoutY="72.0" prefHeight="414.0" prefWidth="312.0">
+    <TableView fx:id="instMemTableView" editable="true" layoutX="15.0" layoutY="72.0" prefHeight="427.0" prefWidth="326.0">
       <columns>
         <TableColumn fx:id="edInstTableColumn" editable="false" prefWidth="38.0" sortable="false" text="Ed." />
         <TableColumn fx:id="addressInstTableColumn" editable="false" prefWidth="67.0" sortable="false" text="Add." />
@@ -22,7 +22,7 @@
         <Font name="System Bold" size="18.0" fx:id="x1" />
       </font>
     </Label>
-    <TableView fx:id="dataMemTableView" editable="true" layoutX="356.0" layoutY="72.0" prefHeight="414.0" prefWidth="162.0">
+    <TableView fx:id="dataMemTableView" editable="true" layoutX="356.0" layoutY="72.0" prefHeight="427.0" prefWidth="175.0">
       <columns>
         <TableColumn fx:id="addressDataTableColumn" editable="false" prefWidth="67.0" sortable="false" text="Add." />
         <TableColumn fx:id="wordDataTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="91.0" sortable="false" text="Word (DEC)" />
@@ -52,7 +52,7 @@
     </Pane>
     <Button fx:id="stepButton" layoutX="560.0" layoutY="405.0" mnemonicParsing="false" onAction="#handleStepButton" text="Step" />
     <Button fx:id="runButton" layoutX="626.0" layoutY="405.0" mnemonicParsing="false" onAction="#handleRunButton" text="Run" />
-    <Separator layoutX="547.0" layoutY="33.0" orientation="VERTICAL" prefHeight="441.0" prefWidth="3.0" />
+    <Separator layoutX="547.0" layoutY="33.0" orientation="VERTICAL" prefHeight="464.0" prefWidth="6.0" />
     <Button id="clearButton" fx:id="resetButton" layoutX="615.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" />
       <MenuBar layoutY="-3.0" prefHeight="29.0" prefWidth="691.0">
         <menus>

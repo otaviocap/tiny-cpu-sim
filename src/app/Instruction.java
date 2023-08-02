@@ -66,11 +66,15 @@ public class Instruction {
         String binContent;        
         if(this.isValidInstruction(inst, reg, cc, mem)) {
             binContent = (inst == null || "".equals(inst)) ? "000" : this.opcodeToBin.get(inst);
-            if(this.isRegInstruction()) {
+
+            if(inst.equals("JC")) {
+                binContent += (cc == null || "".equals(cc)) ? "0" : this.ccToBin.get(cc);
+            }
+            else if(inst.equals("LDR") || inst.equals("STR") || inst.equals("ADD") || inst.equals("SUB") ) {
                 binContent += (reg == null || "".equals(reg)) ? "0" : this.regToBin.get(reg);
             }
             else {
-                binContent += (cc == null || "".equals(cc)) ? "0" : this.ccToBin.get(cc);
+                binContent += "0";
             }
 
             if("".equals(mem)) {

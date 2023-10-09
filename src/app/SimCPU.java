@@ -48,6 +48,7 @@ public class SimCPU extends Application {
         double x = bounds.getMinX() + (bounds.getWidth() - scene.getWidth()) * 0.7;
         stage.setX(x);
         stage.setResizable(false);
+        stage.setTitle("TinyCPU Simulator");
 
     }  
     

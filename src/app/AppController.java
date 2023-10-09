@@ -336,6 +336,7 @@ public class AppController implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("Instruction Manager");
             stage.show(); 
             
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {

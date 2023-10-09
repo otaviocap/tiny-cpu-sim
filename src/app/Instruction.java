@@ -129,7 +129,7 @@ public class Instruction {
     }
 
     private String parseHexWord() {
-        return String.format("%04x", this.decWord).toUpperCase();
+        return String.format("%02x", this.decWord).toUpperCase();
     }
     
     private String parseBinWord() {

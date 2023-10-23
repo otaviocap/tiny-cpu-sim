@@ -20,7 +20,7 @@ TinyCPU-Sim is an JavaFX-based open-source project for an instruction-level simu
 
 ### RTL-Level Schematic
 
-![TinyCPU diagrams-Block diagram (en) drawio](https://github.com/fmsampaio/tiny-cpu-sim/assets/27533879/0f4ab073-6851-46b7-aabb-1ba4bb7b8aa6)
+![TinyCPU diagrams-Block diagram (en) drawio](https://github.com/fmsampaio/tiny-cpu-sim/assets/27533879/d8de5b1d-0581-46e8-8491-ae8faeb82b87)
 
 ### Basic Specification
 

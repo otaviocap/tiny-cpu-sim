@@ -1,14 +1,14 @@
-package app;
+package tinycpu.simulator.Engine.Memory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-class DataMemory {
-    private ObservableList<MemData> memList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class DataMemory {
+    private final ObservableList<MemData> memList;
     private final int DATA_MEM_SIZE = 16;
 
     public DataMemory() {
@@ -16,40 +16,40 @@ class DataMemory {
         for (int add = 0; add < DATA_MEM_SIZE; add++) {
             memList.add(new MemData(Byte.valueOf("0"), add));
         }
-        
+
     }
-    
-    @SuppressWarnings("empty-statement")
+
     public DataMemory(File memFile) throws FileNotFoundException {
         memList = FXCollections.observableArrayList();
         Scanner fileScan = new Scanner(memFile);
-        
-        while(!fileScan.nextLine().equals("DATA"));
-        
+
+        //noinspection StatementWithEmptyBody
+        while (!fileScan.nextLine().equals("DATA")) ;
+
         int addCount = 0;
-        while(fileScan.hasNext()) {
+        while (fileScan.hasNext()) {
             memList.add(new MemData(Byte.valueOf(fileScan.nextLine(), 10), addCount));
             addCount += 1;
         }
-        
-        while(addCount < DATA_MEM_SIZE) {
+
+        while (addCount < DATA_MEM_SIZE) {
             memList.add(new MemData(Byte.valueOf("0"), addCount));
             addCount += 1;
         }
     }
 
     public String getSavedMem() {
-        String returnable = "DATA\n";
+        StringBuilder returnable = new StringBuilder("DATA\n");
         for (MemData data : memList) {
-            returnable += data.getWord() + "\n";
+            returnable.append(data.getWord()).append("\n");
         }
-        return returnable;
+        return returnable.toString();
     }
-    
+
     public ObservableList<MemData> getMemList() {
         return FXCollections.observableArrayList(this.memList);
     }
-    
+
     public void setMemData(int address, String wordStr) {
         MemData data = this.memList.get(address);
         data.setWordStr(wordStr);

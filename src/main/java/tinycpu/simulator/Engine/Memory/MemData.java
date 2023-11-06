@@ -1,15 +1,14 @@
-package app;
+package tinycpu.simulator.Engine.Memory;
 
 public class MemData {
-
+    private Integer address;
     private byte word;
     private Integer wordInt;
     private String wordStr;
-    private Integer address;
-    
+
     MemData(Byte word, int addCount) {
         this.word = word;
-        this.wordInt = new Integer(word);
+        this.wordInt = Integer.valueOf(word);
         this.wordStr = wordInt.toString();
         address = addCount;
     }
@@ -17,7 +16,8 @@ public class MemData {
     public byte getWord() {
         return word;
     }
-
+    
+    @SuppressWarnings("unused")
     public void setWord(byte word) {
         this.word = word;
     }
@@ -36,25 +36,23 @@ public class MemData {
         return address;
     }
 
+    @SuppressWarnings("unused")
     public void setAddress(Integer address) {
         this.address = address;
     }
 
+    @SuppressWarnings("unused")
     public String getWordStr() {
         return wordStr;
     }
 
     public void setWordStr(String wordStr) {
         this.wordStr = wordStr;
-        this.wordInt = new Integer(wordStr);
+        this.wordInt = Integer.valueOf(wordStr);
         this.word = Byte.valueOf(wordStr, 10);
-        
     }
-    
+
     public String toString() {
         return this.address + " " + this.wordStr + "\n";
     }
-    
-    
-    
 }

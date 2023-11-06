@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="203.0" prefWidth="375.0"
+            xmlns="http://javafx.com/javafx/8" fx:controller="tinycpu.simulator.Controllers.InstManagerController">
+    <ComboBox fx:id="instComboBox" layoutX="14.0" layoutY="35.0" prefHeight="29.0" prefWidth="91.0"/>
+    <Label layoutX="14.0" layoutY="14.0" text="INST">
+        <font>
+            <Font name="System Bold" size="13.0"/>
+        </font>
+    </Label>
+    <ComboBox fx:id="regComboBox" layoutX="116.0" layoutY="35.0" prefHeight="29.0" prefWidth="74.0"/>
+    <Label layoutX="116.0" layoutY="14.0" text="REG">
+        <font>
+            <Font name="System Bold" size="13.0"/>
+        </font>
+    </Label>
+    <Label layoutX="198.0" layoutY="14.0" text="CC">
+        <font>
+            <Font name="System Bold" size="13.0"/>
+        </font>
+    </Label>
+    <ComboBox fx:id="ccComboBox" layoutX="199.0" layoutY="35.0" prefHeight="29.0" prefWidth="68.0"/>
+    <TextField fx:id="memTextField" layoutX="276.0" layoutY="35.0" prefHeight="29.0" prefWidth="88.0"/>
+    <Label layoutX="276.0" layoutY="14.0" text="MEM">
+        <font>
+            <Font name="System Bold" size="13.0"/>
+        </font>
+    </Label>
+    <Circle fx:id="c3" fill="#9e9e9e" layoutX="98.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE"/>
+    <Circle fx:id="c2" fill="#9e9e9e" layoutX="117.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE"/>
+    <Circle fx:id="c1" fill="#9e9e9e" layoutX="137.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE"/>
+    <Circle fx:id="c0" fill="#9e9e9e" layoutX="156.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE"/>
+    <Circle fx:id="c4" fill="#9e9e9e" layoutX="80.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE"/>
+    <Circle fx:id="c5" fill="#9e9e9e" layoutX="61.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE"/>
+    <Circle fx:id="c6" fill="#9e9e9e" layoutX="41.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE"/>
+    <Circle fx:id="c7" fill="#9e9e9e" layoutX="22.0" layoutY="110.0" radius="6.0" stroke="BLACK" strokeType="INSIDE"/>
+    <Label layoutX="15.0" layoutY="74.0" text="BINARY CODE">
+        <font>
+            <Font name="System Bold" size="13.0"/>
+        </font>
+    </Label>
+    <Label layoutX="267.0" layoutY="74.0" text="HEX CODE">
+        <font>
+            <Font name="System Bold" size="13.0"/>
+        </font>
+    </Label>
+    <TextField fx:id="hexCodeTextField" editable="false" layoutX="267.0" layoutY="96.0" prefHeight="29.0"
+               prefWidth="97.0"/>
+    <Label layoutX="108.0" layoutY="141.0" text="ASSEMBLY">
+        <font>
+            <Font name="System Bold" size="13.0"/>
+        </font>
+    </Label>
+    <TextField fx:id="assemblyTextField" editable="false" layoutX="105.0" layoutY="159.0" prefHeight="29.0"
+               prefWidth="177.0"/>
+    <Button fx:id="updateButton" layoutX="298.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleUpdateButton"
+            text="Update"/>
+    <TextField fx:id="addressTextField" editable="false" layoutX="12.0" layoutY="159.0" prefHeight="29.0"
+               prefWidth="68.0"/>
+    <Label layoutX="14.0" layoutY="141.0" text="ADDRESS" textFill="RED">
+        <font>
+            <Font name="System Bold" size="13.0"/>
+        </font>
+    </Label>
+</AnchorPane>
